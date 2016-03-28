@@ -11,7 +11,7 @@ require "database_cleaner"
 
 Capybara.app = RushHour::Server
 
-DatabaseCleaner.strategy = :transaction
+DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 # copied directly from readme to DatabaseCleaner gem
 class Minitest::Spec
