@@ -10,7 +10,7 @@ class PayloadRequestTest < Minitest::Test
                                   # "url":"http://jumpstartlab.com/blog",
                                   "requestedAt":"2013-02-16 21:38:28 -0700",
                                   "respondedIn":37,
-                                  "referredBy":"http://jumpstartlab.com",
+                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
                                   # referred_by: Referrer.create(address: "http://jumpstartlab.com"),
                                   "requestType":"GET",
                                   "eventName": "socialLogin",
@@ -24,7 +24,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "http://jumpstartlab.com/blog", payload.url.address
     assert_equal Date.parse("2013-02-16 21:38:28 -0700"), payload.requestedAt
     assert_equal 37, payload.respondedIn
-    assert_equal "http://jumpstartlab.com", payload.referredBy
+    assert_equal "http://jumpstartlab.com", payload.request.referred_by
     assert_equal "GET", payload.requestType
     assert_equal "socialLogin", payload.eventName
     assert_equal "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", payload.userAgent
@@ -36,8 +36,8 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_valid 
 #     assert PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
@@ -50,8 +50,8 @@ class PayloadRequestTest < Minitest::Test
 #
 #   def test_payload_is_not_valid_if_url_is_missing 
 #     refute PayloadRequest.create({
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
@@ -65,7 +65,7 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_requested_at_is_missing 
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "respondedIn":37,
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
@@ -79,7 +79,7 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_responded_in_is_missing 
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
@@ -93,8 +93,8 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_referred_by_is_missing 
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
 #                                   "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
@@ -107,8 +107,8 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_request_type_is_missing
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "eventName": "socialLogin",
 #                                   "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
@@ -121,8 +121,8 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_event_name_is_missing
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
@@ -135,8 +135,8 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_user_agent_is_missing
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
@@ -149,8 +149,8 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_res_width_missing
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
@@ -163,8 +163,8 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_res_height_missing
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
@@ -177,8 +177,8 @@ class PayloadRequestTest < Minitest::Test
 #   def test_payload_is_not_valid_if_ip_is_missing
 #     refute PayloadRequest.create({
 #                                   "url":"http://jumpstartlab.com/blog",
-#                                   "requestedAt":"2013-02-16 21:38:28 -0700",
-#                                   "respondedIn":37,
+#                                   "request_at":"2013-02-16 21:38:28 -0700",
+#                                   "responded_in":37,
 #                                   "referredBy":"http://jumpstartlab.com",
 #                                   "requestType":"GET",
 #                                   "eventName": "socialLogin",
