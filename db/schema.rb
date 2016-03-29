@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329210415) do
+ActiveRecord::Schema.define(version: 20160329212137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20160329210415) do
     t.date     "requestedAt"
     t.integer  "respondedIn"
     t.text     "eventName"
-    t.text     "userAgent"
     t.text     "resolutionWidth"
     t.text     "resolutionHeight"
     t.text     "ip"
@@ -29,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160329210415) do
     t.integer  "url_id"
     t.integer  "request_id"
     t.integer  "request_type_id"
+    t.integer  "user_id"
   end
 
   create_table "request_types", force: :cascade do |t|
@@ -41,6 +41,11 @@ ActiveRecord::Schema.define(version: 20160329210415) do
 
   create_table "urls", force: :cascade do |t|
     t.text "address"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.text "browser"
+    t.text "os"
   end
 
 end

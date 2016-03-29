@@ -14,7 +14,9 @@ class PayloadRequestTest < Minitest::Test
                                   # referred_by: Referrer.create(address: "http://jumpstartlab.com"),
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   "eventName": "socialLogin",
-                                  "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                                  user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
+                                                       os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
+                                                       ).id,
                                   "resolutionWidth":"1920",
                                   "resolutionHeight":"1280",
                                   "ip":"63.29.38.211"
@@ -27,7 +29,8 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "http://jumpstartlab.com", payload.request.referred_by
     assert_equal "GET", payload.request_type.verb
     assert_equal "socialLogin", payload.eventName
-    assert_equal "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", payload.userAgent
+    assert_equal "Chrome", payload.user.browser
+    assert_equal "Macintosh", payload.user.os
     assert_equal "1920", payload.resolutionWidth
     assert_equal "1280", payload.resolutionHeight
     assert_equal "63.29.38.211", payload.ip
