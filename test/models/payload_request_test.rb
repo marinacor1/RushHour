@@ -8,28 +8,28 @@ class PayloadRequestTest < Minitest::Test
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   # url: Url.create(address: 'fdslkfh'),
                                   # "url":"http://jumpstartlab.com/blog",
-                                  "requestedAt":"2013-02-16 21:38:28 -0700",
-                                  "respondedIn":37,
+                                  requested_at: "2013-02-16 21:38:28 -0700",
+                                  responded_in: 37,
                                   request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
                                   # referred_by: Referrer.create(address: "http://jumpstartlab.com"),
                                   request_type_id: RequestType.create(verb: "GET").id,
-                                  "eventName": "socialLogin",
+                                  event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
                                                        os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                        ).id,
                                   display_id: Display.create(width: "1920", height: "1280").id,
                                   # "resolutionWidth":"1920",
                                   # "resolutionHeight":"1280",
-                                  "ip":"63.29.38.211"
+                                  ip: "63.29.38.211"
                                 })
 
 
     assert_equal "http://jumpstartlab.com/blog", payload.url.address
-    assert_equal Date.parse("2013-02-16 21:38:28 -0700"), payload.requestedAt
-    assert_equal 37, payload.respondedIn
+    assert_equal Date.parse("2013-02-16 21:38:28 -0700"), payload.requested_at
+    assert_equal 37, payload.responded_in
     assert_equal "http://jumpstartlab.com", payload.request.referred_by
     assert_equal "GET", payload.request_type.verb
-    assert_equal "socialLogin", payload.eventName
+    assert_equal "socialLogin", payload.event_name
     assert_equal "Chrome", payload.user.browser
     assert_equal "Macintosh", payload.user.os
     assert_equal "1920", payload.display.width
