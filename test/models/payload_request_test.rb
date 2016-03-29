@@ -6,7 +6,7 @@ class PayloadRequestTest < Minitest::Test
     # insert string from payload request into database
     payload = PayloadRequest.create({
                                   "url":"http://jumpstartlab.com/blog",
-                                  "requestedAt":"2013-02-16 21:38:28 -0700",
+                                  "requested_at":"2013-02-16 21:38:28 -0700",
                                   "respondedIn":37,
                                   "referredBy":"http://jumpstartlab.com",
                                   "requestType":"GET",

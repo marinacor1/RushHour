@@ -2,7 +2,7 @@ require 'pry'
 
 class PayloadRequest < ActiveRecord::Base
   validates :url, presence: true
-  validates :requestedAt, presence: true
+  validates :requested_at, presence: true
   validates :respondedIn, presence: true
   validates :referredBy, presence: true
   validates :requestType, presence: true
