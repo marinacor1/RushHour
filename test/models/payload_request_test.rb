@@ -12,7 +12,7 @@ class PayloadRequestTest < Minitest::Test
                                   "respondedIn":37,
                                   request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
                                   # referred_by: Referrer.create(address: "http://jumpstartlab.com"),
-                                  "requestType":"GET",
+                                  request_type_id: RequestType.create(verb: "GET").id,
                                   "eventName": "socialLogin",
                                   "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
                                   "resolutionWidth":"1920",
@@ -25,7 +25,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal Date.parse("2013-02-16 21:38:28 -0700"), payload.requestedAt
     assert_equal 37, payload.respondedIn
     assert_equal "http://jumpstartlab.com", payload.request.referred_by
-    assert_equal "GET", payload.requestType
+    assert_equal "GET", payload.request_type.verb
     assert_equal "socialLogin", payload.eventName
     assert_equal "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17", payload.userAgent
     assert_equal "1920", payload.resolutionWidth
