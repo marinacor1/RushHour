@@ -10,7 +10,7 @@ class DisplayTest < Minitest::Spec
 
     resolutions = Display.all
 
-    assert_equal 1234, resolutions.count
+    assert_equal 4, resolutions.count
   end
 
   def test_display_sdlfksdjf
@@ -18,7 +18,7 @@ class DisplayTest < Minitest::Spec
 
     resolutions = Display.all
 
-    assert_equal 34234, resolutions.count
+    assert_equal 4, resolutions.count
   end
 
 end

@@ -1,7 +1,8 @@
 require_relative '../test_helper'
 require 'pry'
 
-class PayloadRequestTest < Minitest::Test
+class PayloadRequestTest < Minitest::Spec
+
   def test_payload_request_knows_its_attributes
     # insert string from payload request into database
     payload = PayloadRequest.create({
