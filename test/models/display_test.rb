@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 
-class DisplayTest < Minitest::Test
+class DisplayTest < Minitest::Spec
 
   include TestHelpers
 
@@ -10,7 +10,15 @@ class DisplayTest < Minitest::Test
 
     resolutions = Display.all
 
-    assert_equal 1234, resolutions
+    assert_equal 1234, resolutions.count
+  end
+
+  def test_display_sdlfksdjf
+    create_payloads
+
+    resolutions = Display.all
+
+    assert_equal 34234, resolutions.count
   end
 
 end
