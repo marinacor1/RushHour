@@ -8,17 +8,11 @@ class DisplayTest < Minitest::Spec
   def test_display_returns_screen_resolutions_for_all_requests
     create_payloads
 
-    resolutions = Display.all
+    resolutions = Display.screen_resolutions
 
-    assert_equal 4, resolutions.count
-  end
-
-  def test_display_sdlfksdjf
-    create_payloads
-
-    resolutions = Display.all
-
-    assert_equal 4, resolutions.count
+    assert resolutions.any? { |resolution| resolution == "1920 x 1280" }
+    assert resolutions.any? { |resolution| resolution == "9000 x 9000" }
+    assert resolutions.any? { |resolution| resolution == "4000 x 4000" }
   end
 
 end
