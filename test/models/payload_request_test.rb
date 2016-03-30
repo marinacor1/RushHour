@@ -2,6 +2,11 @@ require_relative '../test_helper'
 require 'pry'
 
 class PayloadRequestTest < Minitest::Spec
+  include TestHelpers
+
+  def setup
+    create_payloads
+  end
 
   def test_payload_request_knows_its_attributes
     # insert string from payload request into database
@@ -31,6 +36,27 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal "1920", payload.display.width
     assert_equal "1280", payload.display.height
     assert_equal "63.29.38.211", payload.ip
+  end
+
+  def test_it_calculates_average_response_time
+
+    assert_equal 66.0, PayloadRequest.average_response_time.to_f
+  end
+
+  def test_it_calculates_maximum_response_time
+
+    assert_equal 100, PayloadRequest.maximum_response_time
+  end
+
+  def test_it_calculates_minimum_response_time
+
+    assert_equal 37, PayloadRequest.minimum_response_time
+  end
+
+  def test_it_lists_events_in_order_of_frequency
+    events = PayloadRequest.order_events
+    assert_equal "lastentry", events.first.event_name
+    assert_equal "socialLogin", events.last.event_name
   end
 
   def test_payload_is_valid 
