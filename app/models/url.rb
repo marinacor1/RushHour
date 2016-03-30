@@ -21,11 +21,12 @@ class Url < ActiveRecord::Base
   end
 
   def self.sorted_response_times(url)
-    # get the response times for the url
-    # sort the response times from longest time to shortest time
-    payloads = PayloadRequest.where(url_id: url.id).select(:responded_in).order(responded_in: :desc)
+    payloads = PayloadRequest.where(url_id: url.id).order(responded_in: :desc)
     payloads.all.map { |payload| payload.responded_in}
-    # instead of select do .all.sort_by
+  end
+
+  def self.average_response_time(url)
+    PayloadRequest.where(url_id: url.id).average(:responded_in)
   end
 
 end
