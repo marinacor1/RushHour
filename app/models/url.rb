@@ -4,13 +4,23 @@ require_relative 'request_type'
 class Url < ActiveRecord::Base
 
   def self.sort_url_requests
-    # verb_count is a hash with key = url, value = count of key
-    url_count = self.select(:address).group(:address).count
-    # sort_by the count + reverse returns list of urls in descending order of count
-    # might need to do a better job of using sql here
-    url_count.sort_by do |url, count|
-      count
-    end.reverse
+    payloads = PayloadRequest.select(:url_id)
+    grouped_payloads = payloads.group_by do |payload|
+      payload.url_id
+    end
+    counted = grouped_payloads.map do |key, value|
+      [value.count, Url.find_by(id: key)]
+    end.sort.reverse
+    counted.map do |array|
+      array[1].address
+    end
+    # binding.pry
+    #  where(url_id: url.id).order(responded_in: :desc)
+    # payloads.all.map { |payload| payload.responded_in}
+    # url_count = self.select(:address).group(:address).count
+    # url_count.sort_by do |url, count|
+    #   count
+    # end.reverse
   end
 
   def self.max_response_time(url)
