@@ -1,4 +1,5 @@
 require_relative 'payload_request'
+require_relative 'request_type'
 
 class Url < ActiveRecord::Base
 
@@ -27,6 +28,14 @@ class Url < ActiveRecord::Base
 
   def self.average_response_time(url)
     PayloadRequest.where(url_id: url.id).average(:responded_in)
+  end
+
+  def self.all_verbs(url)
+    payloads = PayloadRequest.where(url_id: url.id)
+
+    request_types = payloads.all.map do |payload|
+      RequestType.where(id: payload.request_type_id).list_verbs
+    end.flatten
   end
 
 end
