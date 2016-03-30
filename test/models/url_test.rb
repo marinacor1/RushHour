@@ -12,6 +12,7 @@ class UrlTest < Minitest::Spec
     assert_equal "http://jumpstartlab.com/", url_list[0][0]
     assert_equal "http://turing.io/", url_list[1][0]
     assert_equal "http://yahoo.com/", url_list[2][0]
+    assert_equal 3, url_list.count
   end
 
 end
