@@ -1,7 +1,6 @@
 require_relative 'payload_request'
 
 class Url < ActiveRecord::Base
-  # validates :address, uniqueness: true
 
   def self.sort_url_requests
     # verb_count is a hash with key = url, value = count of key
