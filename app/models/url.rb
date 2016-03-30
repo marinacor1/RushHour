@@ -39,8 +39,8 @@ class Url < ActiveRecord::Base
     payloads = PayloadRequest.where(url_id: url.id)
 
     request_types = payloads.all.map do |payload|
-      RequestType.where(id: payload.request_type_id).list_verbs
-    end.flatten
+      RequestType.where(id: payload.request_type_id)[0].verb
+    end
   end
 
   def self.popular_referrers(url)
