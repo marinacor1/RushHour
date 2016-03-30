@@ -12,7 +12,7 @@ class UserTest < Minitest::Spec
     assert browser.any? { |b| b == "Chrome" }
     assert browser.any? { |b| b == "Safari" }
     assert browser.any? { |b| b == "Safari" }
-    assert_equal ["Chrome", "Chrome", "Safari", "Safari"], browser
+    assert_equal ["Chrome", "Safari", "Safari"], browser
   end
 
   def test_user_returns_breakdown_of_os
@@ -24,7 +24,7 @@ class UserTest < Minitest::Spec
     assert os.any? { |b| b == "Macintosh" }
     assert os.any? { |b| b == "Linux" }
     assert os.any? { |b| b == "Windows" }
-    assert_equal ["Macintosh", "Macintosh", "Linux", "Windows"], os
+    assert_equal ["Macintosh", "Linux", "Windows"], os
   end
 
   def test_user_will_return_one_browser_for_single_payload
