@@ -54,4 +54,23 @@ class UserTest < Minitest::Spec
     assert_equal ["Safari"], browser
   end
 
+  def test_user_will_return_empty_strings_for_empty_string_responses
+    PayloadRequest.create({ url_id: Url.create(address: "http://jumpstartlab.com/").id,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                            request_type_id: RequestType.create(verb: "GET").id,
+                            event_name: "socialLogin",
+                            user_id: User.create(browser: UserAgent.parse("").browser,
+                                                 os: UserAgent.parse("").platform
+                                                 ).id,
+                            display_id: Display.create(width: "1920", height: "1280").id,
+                            ip: "63.29.38.211"
+                          })
+
+    browser = User.browser_breakdown
+
+    assert_equal ["Mozilla"], browser
+  end
+
 end
