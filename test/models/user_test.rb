@@ -27,14 +27,6 @@ class UserTest < Minitest::Spec
     assert_equal ["Macintosh", "Macintosh", "Linux", "Windows"], os
   end
 
-  def test_user_will_not_return_arbitrary_browser
-    create_payloads
-
-    browser = User.browser_breakdown
-
-    refute browser.any? { |b| b == "Charlie Brown" }
-  end
-
   def test_user_will_return_one_browser_for_single_payload
     PayloadRequest.create({ url_id: Url.create(address: "http://jumpstartlab.com/").id,
                             requested_at: "2013-02-16 21:38:28 -0700",
