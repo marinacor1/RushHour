@@ -51,11 +51,20 @@ class Url < ActiveRecord::Base
     sorted_ids.map do |id_pair|
       referrer = Referrer.where(id: id_pair[0])[0].referred_by
     end
-    # all_referrers = payloads.all.map do |payload|
-    #   Referrer.where(id: payload.referrer_id)
-    # end
-    #
-    # all_referrers.group_by { |referrer| referrer.referred_by }
+  end
 
+  def self.popular_user_agents(url)
+    payloads = PayloadRequest.where(url_id: url.id)
+
+    sorted_ids = payloads.group(:user_id).count.sort_by {|k, v| v }.reverse
+
+    browsers = sorted_ids.map do |id_pair|
+       User.where(id: id_pair[0])[0].browser
+    end
+
+    systems = sorted_ids.map do |id_pair|
+       User.where(id: id_pair[0])[0].os
+    end
+    systems.zip(browsers)[0..2]
   end
 end
