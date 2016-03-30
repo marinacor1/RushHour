@@ -25,4 +25,43 @@ class UrlTest < Minitest::Spec
     assert_equal 37, Url.max_response_time(url)
   end
 
+  def test_returns_min_response_time_by_url
+    PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
+                            requested_at: "2014-02-16 21:38:28 -0700",
+                            responded_in: 10,
+                            request_id: Request.create(referred_by:"http://google.com").id,
+                            request_type_id: RequestType.create(verb: "POST").id,
+                            event_name: "passwordEntry",
+                            user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
+                                                 os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
+                                                 ).id,
+                            display_id: Display.create(width: "9000", height: "9000").id,
+                            ip: "99.99.99.9999"
+                          })
+
+    url = Url.find_by(address: "http://turing.io/")
+    assert_equal 10, Url.min_response_time(url)
+  end
+
+  def test_can_list_ordered_response_times_by_url
+    PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
+                            requested_at: "2014-02-16 21:38:28 -0700",
+                            responded_in: 100,
+                            request_id: Request.create(referred_by:"http://google.com").id,
+                            request_type_id: RequestType.create(verb: "POST").id,
+                            event_name: "passwordEntry",
+                            user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
+                                                 os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
+                                                 ).id,
+                            display_id: Display.create(width: "9000", height: "9000").id,
+                            ip: "99.99.99.9999"
+                          })
+
+    url = Url.find_by(address: "http://turing.io/")
+
+    sorted_response_times = Url.sorted_response_times(url)
+
+    assert_equal [100, 90], sorted_response_times
+  end
+
 end
