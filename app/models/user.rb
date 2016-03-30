@@ -5,4 +5,10 @@ class User < ActiveRecord::Base
         "#{info.browser}"
       end
     end
+
+    def self.os_breakdown
+      self.all.map do |info|
+        "#{info.os}"
+      end
+    end
 end
