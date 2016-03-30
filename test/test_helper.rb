@@ -29,7 +29,7 @@ module TestHelpers
 
   def create_payloads
 
-    PayloadRequest.create({ url_id: Url.create(address: "http://jumpstartlab.com/").id,
+    PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
                             requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 37,
                             request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
@@ -42,7 +42,7 @@ module TestHelpers
                             ip: "63.29.38.211"
                           })
 
-    PayloadRequest.create({ url_id: Url.create(address: "http://jumpstartlab.com/").id,
+    PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
                             requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 37,
                             request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
@@ -55,7 +55,7 @@ module TestHelpers
                             ip: "63.29.38.211"
                           })
 
-    PayloadRequest.create({ url_id: Url.create(address: "http://turing.io/").id,
+    PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
                             responded_in: 90,
                             request_id: Request.create(referred_by:"http://google.com").id,
@@ -68,7 +68,7 @@ module TestHelpers
                             ip: "99.99.99.9999"
                           })
 
-    PayloadRequest.create({ url_id: Url.create(address: "http://yahoo.com/").id,
+    PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://yahoo.com/").id,
                             requested_at: "2015-02-16 21:38:28 -0700",
                             responded_in: 100,
                             request_id: Request.create(referred_by:"http://junglejuice.com").id,
