@@ -8,6 +8,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require "database_cleaner"
+require 'pry'
 
 Capybara.app = RushHour::Server
 
