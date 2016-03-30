@@ -14,7 +14,7 @@ class PayloadRequestTest < Minitest::Spec
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
@@ -28,7 +28,7 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal "http://jumpstartlab.com/blog", payload.url.address
     assert_equal Date.parse("2013-02-16 21:38:28 -0700"), payload.requested_at
     assert_equal 37, payload.responded_in
-    assert_equal "http://jumpstartlab.com", payload.request.referred_by
+    assert_equal "http://jumpstartlab.com", payload.referrer.referred_by
     assert_equal "GET", payload.request_type.verb
     assert_equal "socialLogin", payload.event_name
     assert_equal "Chrome", payload.user.browser
@@ -69,7 +69,7 @@ class PayloadRequestTest < Minitest::Spec
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
@@ -84,7 +84,7 @@ class PayloadRequestTest < Minitest::Spec
     refute PayloadRequest.create({
                                   requested_at: "2013-02-16 21:38:28 -0700",
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
@@ -99,7 +99,7 @@ class PayloadRequestTest < Minitest::Spec
     refute PayloadRequest.create({
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
@@ -114,7 +114,7 @@ class PayloadRequestTest < Minitest::Spec
     refute PayloadRequest.create({
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
@@ -145,7 +145,7 @@ class PayloadRequestTest < Minitest::Spec
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
                                                        os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
@@ -160,7 +160,7 @@ class PayloadRequestTest < Minitest::Spec
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
                                                        os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
@@ -175,7 +175,7 @@ class PayloadRequestTest < Minitest::Spec
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   event_name: "socialLogin",
                                   display_id: Display.create(width: "1920", height: "1280").id,
@@ -188,7 +188,7 @@ class PayloadRequestTest < Minitest::Spec
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
@@ -203,7 +203,7 @@ class PayloadRequestTest < Minitest::Spec
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
                                   responded_in: 37,
-                                  request_id: Request.create(referred_by:"http://jumpstartlab.com").id,
+                                  referrer_id: Referrer.create(referred_by:"http://jumpstartlab.com").id,
                                   request_type_id: RequestType.create(verb: "GET").id,
                                   event_name: "socialLogin",
                                   user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
