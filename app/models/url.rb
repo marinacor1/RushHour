@@ -49,8 +49,7 @@ class Url < ActiveRecord::Base
     sorted_ids = payloads.group(:referrer_id).count.sort_by {|k, v| v }.reverse
 
     sorted_ids.map do |id_pair|
-      # binding.pry
-      referrer = Referrer.where(id: id_pair[0])[0].referred_by 
+      referrer = Referrer.where(id: id_pair[0])[0].referred_by
     end
     # all_referrers = payloads.all.map do |payload|
     #   Referrer.where(id: payload.referrer_id)

@@ -31,13 +31,13 @@ class UrlTest < Minitest::Spec
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
                             responded_in: 10,
-                            referrer_id: Referrer.create(referred_by:"http://google.com").id,
-                            request_type_id: RequestType.create(verb: "POST").id,
+                            referrer_id: Referrer.find_or_create_by(referred_by:"http://google.com").id,
+                            request_type_id: RequestType.find_or_create_by(verb: "POST").id,
                             event_name: "passwordEntry",
-                            user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
+                            user_id: User.find_or_create_by(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
-                            display_id: Display.create(width: "9000", height: "9000").id,
+                            display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
                             ip: "99.99.99.9999"
                           })
 
@@ -49,13 +49,13 @@ class UrlTest < Minitest::Spec
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
                             responded_in: 100,
-                            referrer_id: Referrer.create(referred_by:"http://google.com").id,
-                            request_type_id: RequestType.create(verb: "POST").id,
+                            referrer_id: Referrer.find_or_create_by(referred_by:"http://google.com").id,
+                            request_type_id: RequestType.find_or_create_by(verb: "POST").id,
                             event_name: "passwordEntry",
-                            user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
+                            user_id: User.find_or_create_by(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
-                            display_id: Display.create(width: "9000", height: "9000").id,
+                            display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
                             ip: "99.99.99.9999"
                           })
 
@@ -70,13 +70,13 @@ class UrlTest < Minitest::Spec
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
                             responded_in: 100,
-                            referrer_id: Referrer.create(referred_by:"http://google.com").id,
-                            request_type_id: RequestType.create(verb: "POST").id,
+                            referrer_id: Referrer.find_or_create_by(referred_by:"http://google.com").id,
+                            request_type_id: RequestType.find_or_create_by(verb: "POST").id,
                             event_name: "passwordEntry",
-                            user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
+                            user_id: User.find_or_create_by(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
-                            display_id: Display.create(width: "9000", height: "9000").id,
+                            display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
                             ip: "99.99.99.9999"
                           })
 
@@ -89,13 +89,13 @@ class UrlTest < Minitest::Spec
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
                             responded_in: 100,
-                            referrer_id: Referrer.create(referred_by:"http://google.com").id,
-                            request_type_id: RequestType.create(verb: "PUT").id,
+                            referrer_id: Referrer.find_or_create_by(referred_by:"http://google.com").id,
+                            request_type_id: RequestType.find_or_create_by(verb: "PUT").id,
                             event_name: "passwordEntry",
-                            user_id: User.create(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
+                            user_id: User.find_or_create_by(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Opera/24.0.1309.0 Safari/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
-                            display_id: Display.create(width: "9000", height: "9000").id,
+                            display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
                             ip: "99.99.99.9999"
                           })
 
