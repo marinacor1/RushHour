@@ -21,7 +21,7 @@ class Url < ActiveRecord::Base
     # payloads = PayloadRequest.find_each(url_id: url.id) { |payload| payload.url_id == url.id}
     # payloads.count
     # payloads = PayloadRequest.find(:all, :conditions => ["SELECT * FROM"])
-    PayloadRequest.where(url_id: url.id)
+    PayloadRequest.where(url_id: url.id).maximum(:responded_in)
   end
 
 end

@@ -21,9 +21,8 @@ class UrlTest < Minitest::Spec
   end
 
   def test_returns_max_response_time_by_url
-    skip
     url = Url.find_by(address: "http://jumpstartlab.com/")
-    assert_equal 34, Url.max_response_time(url)
+    assert_equal 37, Url.max_response_time(url)
   end
 
 end
