@@ -22,5 +22,13 @@ module RushHour
       # status, body = client_parser
     end
 
+    post '/sources/:id/data' do |id|
+      PayloadHelper.new(params, id)
+      # Parser.parse(params, id)
+      #inside parser generate hash from arguments
+      #use hash create payload request
+      #return status and body
+    end
+
   end
 end

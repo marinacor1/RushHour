@@ -110,6 +110,7 @@ DEPENDENCIES
   activerecord
   capybara
   database_cleaner
+  json
   launchy
   minitest
   mrspec
