@@ -38,14 +38,13 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal "63.29.38.211", payload.ip
   end
 
-
-    def test_duplicate_urls_pass_existing_id_to_payload
-      assert_equal 3, PayloadRequest.all.map { |payload| payload.url_id }.uniq.count
-      assert_equal 4, PayloadRequest.all.count
-    end
+  def test_duplicate_urls_pass_existing_id_to_payload
+    assert_equal 3, PayloadRequest.all.map { |payload| payload.url_id }.uniq.count
+    assert_equal 15, PayloadRequest.all.count
+  end
 
   def test_it_calculates_average_response_time
-    assert_equal 66.0, PayloadRequest.average_response_time.to_f
+    assert_equal 55.53, PayloadRequest.average_response_time.to_f.round(2)
   end
 
   def test_it_calculates_maximum_response_time
@@ -55,7 +54,7 @@ class PayloadRequestTest < Minitest::Spec
 
   def test_it_calculates_minimum_response_time
 
-    assert_equal 37, PayloadRequest.minimum_response_time
+    assert_equal 10, PayloadRequest.minimum_response_time
   end
 
   def test_it_lists_events_in_order_of_frequency

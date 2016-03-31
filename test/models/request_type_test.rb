@@ -12,7 +12,8 @@ class DisplayTest < Minitest::Spec
     assert all_verbs.any? { |verb| verb == "GET" }
     assert all_verbs.any? { |verb| verb == "POST" }
     assert all_verbs.any? { |verb| verb == "DELETE" }
-    assert_equal 3, all_verbs.count
+    assert all_verbs.any? { |verb| verb == "PUT" }
+    assert_equal 4, all_verbs.count
   end
 
   def test_request_type_knows_most_frequent_request_type
