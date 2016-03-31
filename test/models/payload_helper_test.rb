@@ -10,6 +10,7 @@ class PayloadHelperTest < Minitest::Spec
      "captures"=>["jumpstartlab"],
      "id"=>"jumpstartlab"}
      id = "jumpstartlab"
+     Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
      @helper = PayloadHelper.new(@params, id)
   end
 
@@ -21,6 +22,11 @@ class PayloadHelperTest < Minitest::Spec
   end
 
   def test_can_create_payload_requests
-    PayloadRequest.exists?(url_id: 1)
+    assert PayloadRequest.exists?(url_id: 1)
+    assert Url.exists?(address: "http://jumpstartlab.com/blog")
+    assert Referrer.exists?(referred_by: "http://jumpstartlab.com")
+    assert RequestType.exists?(verb: "GET")
+    assert User.exists?(browser: "Chrome")
+    assert Display.exists?(width: "1920")
   end
 end
