@@ -124,6 +124,7 @@ class UrlTest < Minitest::Spec
 
   def test_can_find_three_most_popular_user_agents
    create_payloads
+   single_payload
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 

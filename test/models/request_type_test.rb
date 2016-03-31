@@ -9,7 +9,7 @@ class DisplayTest < Minitest::Spec
     all_verbs = RequestType.list_verbs
 
     assert_equal 4, all_verbs.count
-    assert_equal ["POST", "PUT", "GET", "DELETE"], all_verbs
+    assert_equal ["PUT", "DELETE", "GET", "POST"], all_verbs
     assert_equal all_verbs, all_verbs.uniq
   end
 

@@ -11,10 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330203506) do
+ActiveRecord::Schema.define(version: 20160331165118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.text "root_url"
+  end
 
   create_table "displays", force: :cascade do |t|
     t.text "width"
@@ -33,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160330203506) do
     t.integer  "request_type_id"
     t.integer  "user_id"
     t.integer  "display_id"
+    t.integer  "client_id"
   end
 
   create_table "referrers", force: :cascade do |t|
