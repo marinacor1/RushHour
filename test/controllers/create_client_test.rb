@@ -29,7 +29,7 @@ class CreateClientTest < Minitest::Test
   def test_cannot_create_client_with_invalid_attributes
     assert_equal 0, Client.count
 
-    post '/sources', {client: {}}
+    post '/sources', {client: {identifier: nil, rootUrl: nil}}
 
     assert_equal 0, Client.count
     assert_equal 400, last_response.status

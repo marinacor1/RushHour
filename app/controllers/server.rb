@@ -5,8 +5,7 @@ module RushHour
     end
 
     post '/sources' do
-        client = Client.new(identifier: params["client"][:identifier],
-                                         root_url: params["client"][:rootUrl] )
+      client = Client.new(identifier: params["client"][:identifier], root_url: params["client"][:rootUrl] ) unless params.empty?
       if client.save
         status 200
       else
