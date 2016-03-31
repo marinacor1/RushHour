@@ -5,6 +5,10 @@ class Url < ActiveRecord::Base
   has_many :payload_requests
   has_many :referrers, through: :payload_requests
 
+  def self.payloads_of(url)
+    PayloadRequest.where(url_id: url.id)
+  end
+
   def self.sort_url_requests
     payloads = PayloadRequest.select(:url_id)
     grouped_payloads = payloads.group_by do |payload|
@@ -19,44 +23,42 @@ class Url < ActiveRecord::Base
   end
 
   def self.max_response_time(url)
-    PayloadRequest.where(url_id: url.id).maximum(:responded_in)
+    self.payloads_of(url).maximum(:responded_in)
   end
 
   def self.min_response_time(url)
-    PayloadRequest.where(url_id: url.id).minimum(:responded_in)
+    self.payloads_of(url).minimum(:responded_in)
   end
 
   def self.sorted_response_times(url)
-    payloads = PayloadRequest.where(url_id: url.id).order(responded_in: :desc)
-    payloads.all.map { |payload| payload.responded_in}
+    payloads = self.payloads_of(url).order(responded_in: :desc)
+    payloads.all.map { |payload| payload.responded_in }
   end
 
   def self.average_response_time(url)
-    PayloadRequest.where(url_id: url.id).average(:responded_in)
+    self.payloads_of(url).average(:responded_in)
   end
 
   def self.all_verbs(url)
-    payloads = PayloadRequest.where(url_id: url.id)
-
-    request_types = payloads.all.map do |payload|
+    request_types = self.payloads_of(url).all.map do |payload|
       RequestType.where(id: payload.request_type_id)[0].verb
     end
   end
 
   def self.popular_referrers(url)
-    payloads = PayloadRequest.where(url_id: url.id)
+    sorted_ids = self.payloads_of(url).group(:referrer_id).count.sort_by do |referrer, count|
+      count
+    end.reverse
 
-    sorted_ids = payloads.group(:referrer_id).count.sort_by {|k, v| v }.reverse
-
-    sorted_ids.map do |id_pair|
+    popular = sorted_ids.map do |id_pair|
       referrer = Referrer.where(id: id_pair[0])[0].referred_by
     end
+
+    popular[0..2]
   end
 
   def self.popular_user_agents(url)
-    payloads = PayloadRequest.where(url_id: url.id)
-
-    sorted_ids = payloads.group(:user_id).count.sort_by {|k, v| v }.reverse
+    sorted_ids = self.payloads_of(url).group(:user_id).count.sort_by {|k, v| v }.reverse
 
     browsers = sorted_ids.map do |id_pair|
        User.where(id: id_pair[0])[0].browser

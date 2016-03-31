@@ -61,7 +61,7 @@ class UrlTest < Minitest::Spec
 
     sorted_referrers = Url.popular_referrers(url)
 
-    assert_equal ["http://jumpstartlab.com", "http://google.com", "http://bing.com"], sorted_referrers
+    assert_equal ["http://jumpstartlab.com", "http://google.com", "http://askjeeves.com"], sorted_referrers
   end
 
   def test_can_find_three_most_popular_user_agents
