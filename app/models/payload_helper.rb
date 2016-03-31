@@ -1,6 +1,7 @@
 require 'json'
 class PayloadHelper
-
+  attr_accessor :payload
+  
   def initialize(params)
     @client = params["id"]
     create_payload_requests(parse(params))
@@ -12,7 +13,7 @@ class PayloadHelper
   end
 
   def create_payload_requests(params_hash)
-    PayloadRequest.create({url_id: Url.find_or_create_by(address: params_hash["url"]).id,
+    @payload = PayloadRequest.new({url_id: Url.find_or_create_by(address: params_hash["url"]).id,
                       requested_at: params_hash["requestedAt"],
                       responded_in: params_hash["respondedIn"],
                       referrer_id: Referrer.find_or_create_by(referred_by: params_hash["referredBy"]).id,
@@ -24,6 +25,5 @@ class PayloadHelper
                       ip: params_hash["ip"],
                       client_id: Client.find_by(:identifier == @client).id
                       })
-                      # binding.pry
   end
 end

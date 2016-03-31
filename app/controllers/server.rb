@@ -11,7 +11,7 @@ module RushHour
         body "identifier: #{client.identifier}"
       elsif Client.find_by(:identifier == params[:identifier])
         status 403
-        error = body client.errors.full_messages.join(", ")
+        body client.errors.full_messages.join(", ")
       else
         status 400
         body client.errors.full_messages.join(", ")
@@ -23,13 +23,13 @@ module RushHour
     end
 
     post '/sources/:id/data' do |id|
-      PayloadHelper.new(params)
-      # Parser.parse(params, id)
-      #inside parser generate hash from arguments
-      #assign hash keys to table row names
-      #use hash create payload request
-      #return status and body
+      helper = PayloadHelper.new(params)
+      if helper.payload.save
+        status 200
+      else
+        status 403
+        body client.errors.full_messages.join(", ")
+      end
     end
-
   end
 end
