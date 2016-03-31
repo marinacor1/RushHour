@@ -60,7 +60,7 @@ class UrlTest < Minitest::Spec
 
     url = Url.find_by(address: "http://turing.io/")
 
-    assert_equal 80.0, Url.average_response_time(url)
+    assert_equal 80.0, url.average_response_time(url)
   end
 
   def test_can_find_avg_for_all_responses_with_diff_url
@@ -68,7 +68,7 @@ class UrlTest < Minitest::Spec
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
-    assert_equal 33.67, Url.average_response_time(url)
+    assert_equal 33.67, url.average_response_time(url)
 
   end
 

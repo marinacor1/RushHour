@@ -60,8 +60,8 @@ class Url < ActiveRecord::Base
     x = payloads.map { |payload| payload.responded_in }
   end
 
-  def self.average_response_time(url)
-    self.payloads_of(url).average(:responded_in).to_f.round(2)
+  def average_response_time(url)
+    payload_requests.average(:responded_in).to_f.round(2)
   end
 
   def self.all_verbs(url)
