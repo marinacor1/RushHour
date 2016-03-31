@@ -10,6 +10,7 @@ class DisplayTest < Minitest::Spec
 
     assert_equal 4, all_verbs.count
     assert_equal ["POST", "PUT", "GET", "DELETE"], all_verbs
+    assert_equal all_verbs, all_verbs.uniq
   end
 
   def test_request_type_knows_most_frequent_request_type
