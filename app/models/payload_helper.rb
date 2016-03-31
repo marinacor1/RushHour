@@ -3,8 +3,10 @@ class PayloadHelper
 
   def initialize(params, id)
     parse(params)
-    binding.pry
+
+    # binding.pry
   end
+
   def parse(params)
     JSON.parse(params["payload"])
   end
