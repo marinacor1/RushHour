@@ -11,7 +11,7 @@ class PayloadHelperTest < Minitest::Spec
      "id"=>"jumpstartlab"}
      id = "jumpstartlab"
      Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
-     @helper = PayloadHelper.new(@params, id)
+     @helper = PayloadHelper.new(@params)
   end
 
   def test_parse_produces_payload_hash
