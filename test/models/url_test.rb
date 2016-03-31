@@ -4,8 +4,11 @@ class UrlTest < Minitest::Spec
   include TestHelpers
 
   def test_duplicate_urls_are_eliminated
-    create_payloads
-    assert_equal 3, Url.all.count
+    single_payload
+    single_payload
+
+    all_sites = Url.all
+    assert_equal 1, all_sites.count
   end
 
 #TODO should this responsibility lie in payload class?
@@ -72,7 +75,7 @@ class UrlTest < Minitest::Spec
 
   def test_can_find_three_most_popular_user_agents
    create_payloads
-   
+
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
     user_agents = Url.popular_user_agents(url)
