@@ -111,6 +111,17 @@ class UrlTest < Minitest::Spec
     assert_equal ["http://google.com"], sorted_referrers
   end
 
+  def test_returns_single_referrer_if_single_payload_given
+    single_payload
+
+    url = Url.find_by(address: "http://jumpstartlab.com/")
+
+    sorted_referrers = Url.popular_referrers(url)
+
+    assert_equal ["http://jumpstartlab.com"], sorted_referrers
+
+  end
+
   def test_can_find_three_most_popular_user_agents
    create_payloads
 
@@ -122,7 +133,7 @@ class UrlTest < Minitest::Spec
     assert_equal 3, user_agents.count
   end
 
-  def test_returns_single_user_agent_if_only_popular_option
+  def test_returns_single_user_agent_if_only_one_popular_option
    single_turing_payload
    single_turing_payload
    single_turing_payload
@@ -133,5 +144,17 @@ class UrlTest < Minitest::Spec
 
     assert_equal [["Macintosh", "Chrome"]], user_agents
     assert_equal 1, user_agents.count
+  end
+
+  def test_returns_single_user_agent_if_only_one_payload
+    single_payload
+
+    url = Url.find_by(address: "http://jumpstartlab.com/")
+
+    user_agents = Url.popular_user_agents(url)
+
+    assert_equal [["Macintosh", "Chrome"]], user_agents
+    assert_equal 1, user_agents.count
+
   end
 end
