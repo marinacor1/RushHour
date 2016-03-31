@@ -26,6 +26,15 @@ class CreateClientTest < Minitest::Test
     assert_equal "http://jumpstartlab.com", Client.all.first.root_url
   end
 
+  def test_cannot_create_client_with_invalid_attributes
+    assert_equal 0, Client.count
+
+    post '/sources', {client: {}}
+
+    assert_equal 0, Client.count
+    assert_equal 400, last_response.status
+  end
+
 
 
 end

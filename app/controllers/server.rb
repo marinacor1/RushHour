@@ -5,10 +5,14 @@ module RushHour
     end
 
     post '/sources' do
-      client = Client.find_or_create_by(identifier: params["client"][:identifier],
-                               root_url: params["client"][:rootUrl] )
+        client = Client.new(identifier: params["client"][:identifier],
+                                         root_url: params["client"][:rootUrl] )
+      if client.save
+        status 200
+      else
+        status 400
+      end
     end
-
 
   end
 end

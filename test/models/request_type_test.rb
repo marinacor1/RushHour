@@ -9,8 +9,12 @@ class DisplayTest < Minitest::Spec
     all_verbs = RequestType.list_verbs
 
     assert_equal 4, all_verbs.count
-    assert_equal ["PUT", "DELETE", "GET", "POST"], all_verbs
+    assert all_verbs.include?("PUT")
+    assert all_verbs.include?("POST")
+    assert all_verbs.include?("DELETE")
+    assert all_verbs.include?("GET")
     assert_equal all_verbs, all_verbs.uniq
+    assert_equal Array, all.verbs.class
   end
 
   def test_request_type_knows_most_frequent_request_type
