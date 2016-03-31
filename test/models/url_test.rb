@@ -104,7 +104,7 @@ class UrlTest < Minitest::Spec
 
     sorted_referrers = url.popular_referrers
 
-    assert_equal "http://google.com", sorted_referrers
+    assert_equal ["http://google.com"], sorted_referrers
   end
 
   def test_returns_single_referrer_if_single_payload_given
@@ -114,7 +114,7 @@ class UrlTest < Minitest::Spec
 
     sorted_referrers = url.popular_referrers
 
-    assert_equal "http://jumpstartlab.com", sorted_referrers
+    assert_equal ["http://jumpstartlab.com"], sorted_referrers
 
   end
 
