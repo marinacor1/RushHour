@@ -73,7 +73,9 @@ class Url < ActiveRecord::Base
   def popular_referrers
     popular = payload_requests.group(:referrer_id).count
     #{1 => 3} count is 3 id is 1
-    x = referrers.find_by(id: popular.keys).referred_by
+    group = referrers.group(:referred_by).count
+    group[0..2]
+    # x = referrers.find_by(id: popular.keys).referred_by
     # x = Referrer.find(popular.keys)
     #return max group
     # sorted_ids = group_by_count_of(url, :referrer_id)
