@@ -42,7 +42,7 @@ class PayloadRequestTest < Minitest::Spec
   def test_it_calculates_average_response_time
     create_payloads
 
-    assert_equal 55.53, PayloadRequest.average_response_time
+    assert_equal 53.53, PayloadRequest.average_response_time
   end
 
   def test_it_calculates_maximum_response_time
@@ -54,7 +54,7 @@ class PayloadRequestTest < Minitest::Spec
   def test_it_calculates_minimum_response_time
     create_payloads
 
-    assert_equal 10, PayloadRequest.minimum_response_time
+    assert_equal 7, PayloadRequest.minimum_response_time
   end
 
   def test_will_return_single_min_and_max_response_time_if_single_payload

@@ -205,7 +205,7 @@ module TestHelpers
                           })
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
                             requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 37,
+                            responded_in: 7,
                             referrer_id: Referrer.find_or_create_by(referred_by:"http://jumpstartlab.com").id,
                             request_type_id: RequestType.find_or_create_by(verb: "GET").id,
                             event_name: "socialLogin",
