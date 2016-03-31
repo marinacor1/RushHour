@@ -6,20 +6,36 @@ class Url < ActiveRecord::Base
   has_many :referrers, through: :payload_requests
 
   def self.payloads_of(url)
-    PayloadRequest.where(url_id: url.id)
+    if url == "all"
+      PayloadRequest.all
+    else
+      PayloadRequest.where(url_id: url.id)
+    end
+  end
+
+  def self.group_by_count_of(url, attribute)
+    self.payloads_of(url).group(attribute).count.sort_by do |attribute, count|
+      count
+    end.reverse
+  end
+
+  def self.get_result_from(attribute_ids, attribute)
+    attribute_ids.map do |id_pair|
+      if attribute == "referred_by"
+        Referrer.where(id: id_pair[0]).first.referred_by
+      elsif attribute == "browser"
+        User.where(id: id_pair[0]).first.browser
+      elsif attribute == "os"
+        User.where(id: id_pair[0]).first.os
+      elsif attribute == "address"
+        Url.where(id: id_pair[0]).first.address
+      end
+    end
   end
 
   def self.sort_url_requests
-    payloads = PayloadRequest.select(:url_id)
-    grouped_payloads = payloads.group_by do |payload|
-      payload.url_id
-    end
-    counted = grouped_payloads.map do |key, value|
-      [value.count, Url.find_by(id: key)]
-    end.sort.reverse
-    result = counted.map do |array|
-      array[1].address
-    end
+    sorted_ids = self.group_by_count_of("all", :url_id)
+    most_urls = self.get_result_from(sorted_ids, "address")
   end
 
   def self.max_response_time(url)
@@ -46,27 +62,15 @@ class Url < ActiveRecord::Base
   end
 
   def self.popular_referrers(url)
-    sorted_ids = self.payloads_of(url).group(:referrer_id).count.sort_by do |referrer, count|
-      count
-    end.reverse
-
-    popular = sorted_ids.map do |id_pair|
-      referrer = Referrer.where(id: id_pair[0])[0].referred_by
-    end
-
+    sorted_ids = self.group_by_count_of(url, :referrer_id)
+    popular = self.get_result_from(sorted_ids, "referred_by")
     popular[0..2]
   end
 
   def self.popular_user_agents(url)
-    sorted_ids = self.payloads_of(url).group(:user_id).count.sort_by {|k, v| v }.reverse
-
-    browsers = sorted_ids.map do |id_pair|
-       User.where(id: id_pair[0])[0].browser
-    end
-
-    systems = sorted_ids.map do |id_pair|
-       User.where(id: id_pair[0])[0].os
-    end
+    sorted_ids = self.group_by_count_of(url, :user_id)
+    browsers = self.get_result_from(sorted_ids, "browser")
+    systems = self.get_result_from(sorted_ids, "os")
     systems.zip(browsers)[0..2]
   end
 end
