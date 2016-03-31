@@ -3,17 +3,16 @@ require_relative "../test_helper"
 class UrlTest < Minitest::Spec
   include TestHelpers
 
-  def setup
-    create_payloads
-  end
-
   def test_duplicate_urls_are_eliminated
+    create_payloads
     assert_equal 3, Url.all.count
   end
 
 #TODO should this responsibility lie in payload class?
 
   def test_can_list_urls_by_num_times_requested
+    create_payloads
+
     url_list = Url.sort_url_requests
     assert_equal "http://jumpstartlab.com/", url_list[0]
 
@@ -23,17 +22,21 @@ class UrlTest < Minitest::Spec
   end
 
   def test_returns_max_response_time_by_url
+    create_payloads
+
     url = Url.find_by(address: "http://jumpstartlab.com/")
     assert_equal 37, Url.max_response_time(url)
   end
 
   def test_returns_min_response_time_by_url
+    create_payloads
 
     url = Url.find_by(address: "http://turing.io/")
     assert_equal 10, Url.min_response_time(url)
   end
 
   def test_can_list_ordered_response_times_by_url
+    create_payloads
 
     url = Url.find_by(address: "http://turing.io/")
 
@@ -43,6 +46,7 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_avg_for_all_response_times_by_url
+    create_payloads
 
     url = Url.find_by(address: "http://turing.io/")
 
@@ -50,12 +54,14 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_http_verbs_by_url
+    create_payloads
 
     url = Url.find_by(address: "http://turing.io/")
     assert_equal ["POST", "PUT", "POST", "POST", "POST"], Url.all_verbs(url)
   end
 
   def test_can_find_three_most_popular_referrers
+   create_payloads
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
@@ -65,7 +71,8 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_three_most_popular_user_agents
-
+   create_payloads
+   
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
     user_agents = Url.popular_user_agents(url)
