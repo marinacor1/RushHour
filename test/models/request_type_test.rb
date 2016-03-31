@@ -1,7 +1,6 @@
 require_relative "../test_helper"
 
 class DisplayTest < Minitest::Spec
-
   include TestHelpers
 
   def test_request_type_knows_all_http_verbs_used
@@ -9,11 +8,8 @@ class DisplayTest < Minitest::Spec
 
     all_verbs = RequestType.list_verbs
 
-    assert all_verbs.any? { |verb| verb == "GET" }
-    assert all_verbs.any? { |verb| verb == "POST" }
-    assert all_verbs.any? { |verb| verb == "DELETE" }
-    assert all_verbs.any? { |verb| verb == "PUT" }
     assert_equal 4, all_verbs.count
+    assert_equal ["POST", "PUT", "GET", "DELETE"], all_verbs
   end
 
   def test_request_type_knows_most_frequent_request_type
