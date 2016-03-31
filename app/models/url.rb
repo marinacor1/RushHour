@@ -70,10 +70,15 @@ class Url < ActiveRecord::Base
     end
   end
 
-  def self.popular_referrers(url)
-    sorted_ids = self.group_by_count_of(url, :referrer_id)
-    popular = self.get_result_from(sorted_ids, "referred_by")
-    popular[0..2]
+  def popular_referrers
+    popular = payload_requests.group(:referrer_id).count
+    #{1 => 3} count is 3 id is 1
+    x = referrers.find_by(id: popular.keys).referred_by
+    # x = Referrer.find(popular.keys)
+    #return max group
+    # sorted_ids = group_by_count_of(url, :referrer_id)
+    # popular = get_result_from(sorted_ids, "referred_by")
+    # x[0..2]
   end
 
   def self.popular_user_agents(url)
