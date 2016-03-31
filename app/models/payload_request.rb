@@ -17,7 +17,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :ip, presence: true
 
   def self.average_response_time
-    self.average(:responded_in)
+    average = self.average(:responded_in)
+    average.to_f.round(2)
   end
 
   def self.maximum_response_time
@@ -29,8 +30,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.order_events
-    # binding.pry
-    # self.select(:event_name).uniq
+    # TODO do we want this uniq? self.select(:event_name).uniq
     self.order(event_name: :desc)
   end
 end
