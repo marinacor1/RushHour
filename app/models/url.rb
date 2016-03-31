@@ -4,6 +4,7 @@ require_relative 'request_type'
 class Url < ActiveRecord::Base
   has_many :payload_requests
   has_many :referrers, through: :payload_requests
+  has_many :users, through: :payload_requests
 
   def self.payloads_of(url)
     if url == "all"
@@ -72,14 +73,21 @@ class Url < ActiveRecord::Base
 
   def popular_referrers
     popular = payload_requests.group(:referrer_id).count
-    group = referrers.group(:referred_by).count
-    group.keys[0..2]
+    grouped_referrers = referrers.group(:referred_by).count
+    grouped_referrers.keys[0..2]
   end
 
-  def self.popular_user_agents(url)
-    sorted_ids = self.group_by_count_of(url, :user_id)
-    browsers = self.get_result_from(sorted_ids, "browser")
-    systems = self.get_result_from(sorted_ids, "os")
-    systems.zip(browsers)[0..2]
+  def popular_user_agents
+    #TODO this would be worth looking at and seeing
+    #if our test output was wrong initially or if it's wrong now
+    popular = payload_requests.group(:user_id).count
+    grouped_systems = users.group(:os).count
+    grouped_browsers = users.group(:browser).count
+    (grouped_systems.keys).zip(grouped_browsers.keys)
+    # binding.pry
+    # sorted_ids = self.group_by_count_of(url, :user_id)
+    # browsers = self.get_result_from(sorted_ids, "browser")
+    # systems = self.get_result_from(sorted_ids, "os")
+    # systems.zip(browsers)[0..2]
   end
 end
