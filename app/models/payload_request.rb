@@ -29,6 +29,8 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.order_events
-    self.order(:event_name)
+    # binding.pry
+    # self.select(:event_name).uniq
+    self.order(event_name: :desc)
   end
 end

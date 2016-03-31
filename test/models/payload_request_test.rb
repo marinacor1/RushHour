@@ -61,8 +61,10 @@ class PayloadRequestTest < Minitest::Spec
     create_payloads
 
     events = PayloadRequest.order_events
-    assert_equal "lastentry", events.first.event_name
-    assert_equal "socialLogin", events.last.event_name
+    assert_equal "socialLogin", events.first.event_name
+    assert_equal "lastentry", events.last.event_name
+    array = "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "passwordEntry", "passwordEntry", "passwordEntry", "passwordEntry", "passwordEntry", "lastentry"
+    assert_equal array, events.map {|event| event.event_name}
   end
 
   def test_payload_is_valid 
