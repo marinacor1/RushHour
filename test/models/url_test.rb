@@ -122,4 +122,16 @@ class UrlTest < Minitest::Spec
     assert_equal 3, user_agents.count
   end
 
+  def test_returns_single_user_agent_if_only_popular_option
+   single_turing_payload
+   single_turing_payload
+   single_turing_payload
+
+    url = Url.find_by(address: "http://turing.io/")
+
+    user_agents = Url.popular_user_agents(url)
+
+    assert_equal [["Macintosh", "Chrome"]], user_agents
+    assert_equal 1, user_agents.count
+  end
 end
