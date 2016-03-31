@@ -51,8 +51,8 @@ class Url < ActiveRecord::Base
     payload_requests.minimum(:responded_in)
   end
 
-  def self.min_response_time(url)
-    self.payloads_of(url).minimum(:responded_in)
+  def min_response_time
+    payload_requests.minimum(:responded_in)
   end
 
   def sorted_response_times

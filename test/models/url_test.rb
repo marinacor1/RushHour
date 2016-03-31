@@ -69,7 +69,6 @@ class UrlTest < Minitest::Spec
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
     assert_equal 33.67, url.average_response_time(url)
-
   end
 
   def test_can_find_http_verbs_by_url
