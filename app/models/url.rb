@@ -39,7 +39,9 @@ class Url < ActiveRecord::Base
     payloads = PayloadRequest.where(url_id: url.id)
 
     request_types = payloads.all.map do |payload|
-      RequestType.where(id: payload.request_type_id).list_verbs
+      x = RequestType.where(id: payload.request_type_id).list_verbs
+      binding.pry
+      puts "#{payload}payload"
     end.flatten
   end
 
