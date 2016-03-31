@@ -44,9 +44,7 @@ class UrlTest < Minitest::Spec
 
     url = Url.find_by(address: "http://turing.io/")
 
-    sorted_response_times = Url.sorted_response_times(url)
-
-    assert_equal [100, 100, 100, 90, 10], sorted_response_times
+    assert_equal [100, 100, 100, 90, 10], url.sorted_response_times
   end
 
   def test_can_list_ordered_response_times_with_different_url
@@ -54,9 +52,7 @@ class UrlTest < Minitest::Spec
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
-    sorted_response_times = Url.sorted_response_times(url)
-
-    assert_equal [37, 37, 37, 37, 37, 37, 37, 37, 7], sorted_response_times
+    assert_equal [37, 37, 37, 37, 37, 37, 37, 37, 7], url.sorted_response_times
   end
 
   def test_can_find_avg_for_all_response_times_by_url

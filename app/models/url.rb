@@ -55,9 +55,9 @@ class Url < ActiveRecord::Base
     self.payloads_of(url).minimum(:responded_in)
   end
 
-  def self.sorted_response_times(url)
-    payloads = self.payloads_of(url).order(responded_in: :desc)
-    payloads.all.map { |payload| payload.responded_in }
+  def sorted_response_times
+    payloads = payload_requests.order(responded_in: :desc)
+    x = payloads.map { |payload| payload.responded_in }
   end
 
   def self.average_response_time(url)
