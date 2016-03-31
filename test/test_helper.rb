@@ -12,6 +12,7 @@ require 'minitest/pride'
 require 'capybara/dsl'
 require "database_cleaner"
 require 'pry'
+require 'tilt/erb'
 
 Capybara.app = RushHour::Server
 
