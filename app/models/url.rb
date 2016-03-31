@@ -32,7 +32,7 @@ class Url < ActiveRecord::Base
   end
 
   def self.average_response_time(url)
-    PayloadRequest.where(url_id: url.id).average(:responded_in)
+    PayloadRequest.where(url_id: url.id).average(:responded_in).to_f.round(2)
   end
 
   def self.all_verbs(url)

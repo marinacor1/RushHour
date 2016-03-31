@@ -63,7 +63,16 @@ class UrlTest < Minitest::Spec
 
     url = Url.find_by(address: "http://turing.io/")
 
-    assert_equal 80.0, Url.average_response_time(url).to_f
+    assert_equal 80.0, Url.average_response_time(url)
+  end
+
+  def test_can_find_avg_for_all_responses_with_diff_url
+    create_payloads
+
+    url = Url.find_by(address: "http://jumpstartlab.com/")
+
+    assert_equal 33.67, Url.average_response_time(url)
+
   end
 
   def test_can_find_http_verbs_by_url
@@ -71,6 +80,13 @@ class UrlTest < Minitest::Spec
 
     url = Url.find_by(address: "http://turing.io/")
     assert_equal ["POST", "PUT", "POST", "POST", "POST"], Url.all_verbs(url)
+  end
+
+  def test_can_find_http_verbs_with_different_url
+    create_payloads
+
+    url = Url.find_by(address: "http://yahoo.com/")
+    assert_equal ["DELETE"], Url.all_verbs(url)
   end
 
   def test_can_find_three_most_popular_referrers
@@ -81,6 +97,18 @@ class UrlTest < Minitest::Spec
     sorted_referrers = Url.popular_referrers(url)
 
     assert_equal ["http://jumpstartlab.com", "http://google.com", "http://bing.com"], sorted_referrers
+  end
+
+  def test_returns_one_referrer_if_only_one_option_in_payloads
+   single_turing_payload
+   single_turing_payload
+   single_turing_payload
+
+    url = Url.find_by(address: "http://turing.io/")
+
+    sorted_referrers = Url.popular_referrers(url)
+
+    assert_equal ["http://google.com"], sorted_referrers
   end
 
   def test_can_find_three_most_popular_user_agents
