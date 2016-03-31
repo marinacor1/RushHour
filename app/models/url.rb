@@ -13,6 +13,7 @@ class Url < ActiveRecord::Base
     end
   end
 
+
   def self.group_by_count_of(url, attribute)
     self.payloads_of(url).group(attribute).count.sort_by do |attribute, count|
       count
@@ -40,6 +41,14 @@ class Url < ActiveRecord::Base
 
   def self.max_response_time(url)
     self.payloads_of(url).maximum(:responded_in)
+  end
+
+  def max_response_time
+    payload_requests.maximum(:responded_in)
+  end
+
+  def min_response_time
+    payload_requests.minimum(:responded_in)
   end
 
   def self.min_response_time(url)

@@ -28,14 +28,15 @@ class UrlTest < Minitest::Spec
     create_payloads
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
-    assert_equal 37, Url.max_response_time(url)
+
+    assert_equal 37, url.max_response_time
   end
 
   def test_returns_min_response_time_by_url
     create_payloads
 
     url = Url.find_by(address: "http://turing.io/")
-    assert_equal 10, Url.min_response_time(url)
+    assert_equal 10, url.min_response_time
   end
 
   def test_can_list_ordered_response_times_by_url
