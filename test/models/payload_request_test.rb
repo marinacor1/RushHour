@@ -4,12 +4,7 @@ require 'pry'
 class PayloadRequestTest < Minitest::Spec
   include TestHelpers
 
-  def setup
-    create_payloads
-  end
-
   def test_payload_request_knows_its_attributes
-    # insert string from payload request into database
     payload = PayloadRequest.create({
                                   url_id: Url.create(address: 'http://jumpstartlab.com/blog').id,
                                   requested_at: "2013-02-16 21:38:28 -0700",
@@ -23,7 +18,6 @@ class PayloadRequestTest < Minitest::Spec
                                   display_id: Display.create(width: "1920", height: "1280").id,
                                   ip: "63.29.38.211"
                                 })
-
 
     assert_equal "http://jumpstartlab.com/blog", payload.url.address
     assert_equal Date.parse("2013-02-16 21:38:28 -0700"), payload.requested_at
@@ -39,25 +33,33 @@ class PayloadRequestTest < Minitest::Spec
   end
 
   def test_duplicate_urls_pass_existing_id_to_payload
+    create_payloads
+
     assert_equal 3, PayloadRequest.all.map { |payload| payload.url_id }.uniq.count
     assert_equal 15, PayloadRequest.all.count
   end
 
   def test_it_calculates_average_response_time
+    create_payloads
+
     assert_equal 55.53, PayloadRequest.average_response_time.to_f.round(2)
   end
 
   def test_it_calculates_maximum_response_time
+    create_payloads
 
     assert_equal 100, PayloadRequest.maximum_response_time
   end
 
   def test_it_calculates_minimum_response_time
+    create_payloads
 
     assert_equal 10, PayloadRequest.minimum_response_time
   end
 
   def test_it_lists_events_in_order_of_frequency
+    create_payloads
+
     events = PayloadRequest.order_events
     assert_equal "lastentry", events.first.event_name
     assert_equal "socialLogin", events.last.event_name
