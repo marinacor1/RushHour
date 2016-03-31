@@ -23,10 +23,12 @@ module RushHour
     end
 
     post '/sources/:id/data' do |id|
-      PayloadHelper.new(params, id)
+      formatted = PayloadHelper.new(params, id)
       # Parser.parse(params, id)
       #inside parser generate hash from arguments
+      #assign hash keys to table row names
       #use hash create payload request
+      PayloadRequest.create(formatted)
       #return status and body
     end
 
