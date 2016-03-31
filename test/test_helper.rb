@@ -50,7 +50,7 @@ module TestHelpers
                             user_id: User.find_or_create_by(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
-                            display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            display_id: Display.find_or_create_by(width: "120", height: "180").id,
                             ip: "63.29.38.211"
                           })
 
@@ -88,7 +88,7 @@ module TestHelpers
                             user_id: User.find_or_create_by(browser: UserAgent.parse("Aetscape/5.0 (Macintosh; Intel Mac OS X 10_8_2) Aetscape/537.17 (KHTML, like Gecko) Aetscape/24.0.1309.0 Aetscape/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
-                            display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            display_id: Display.find_or_create_by(width: "192", height: "128").id,
                             ip: "63.29.38.211"
                           })
 
@@ -101,7 +101,7 @@ module TestHelpers
                             user_id: User.find_or_create_by(browser: UserAgent.parse("").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
-                            display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            display_id: Display.find_or_create_by(width: "120", height: "1280").id,
                             ip: "63.29.38.211"
                           })
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
@@ -126,7 +126,7 @@ module TestHelpers
                             user_id: User.find_or_create_by(browser: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
-                            display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            display_id: Display.find_or_create_by(width: "190", height: "123").id,
                             ip: "63.29.38.211"
                           })
 
