@@ -20,4 +20,12 @@ class DisplayTest < Minitest::Spec
     assert_equal "GET", winner
   end
 
+  def test_request_type_removes_duplicates
+    single_payload
+    single_payload
+
+    verbs = RequestType.most_requested
+    assert_equal "GET", verbs
+  end
+
 end
