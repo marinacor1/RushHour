@@ -59,6 +59,19 @@ class CreatePayloadTest < Minitest::Test
 
       assert_equal 403, last_response.status
       assert_equal 1, PayloadRequest.count
-      assert_equal "", last_response.body
+      assert_equal "This is working", last_response.body
   end
+
+  def test_returns_400_if_missing_payload
+    assert_equal 0, PayloadRequest.count
+
+    post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+    assert_equal "jumpstartlab", Client.all.first.identifier
+
+    post '/sources/jumpstartlab/data', nil
+
+    assert_equal 0, PayloadRequest.count
+    assert_equal 400, last_response.status
+  end
+
 end

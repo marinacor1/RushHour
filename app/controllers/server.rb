@@ -24,7 +24,9 @@ module RushHour
 
     post '/sources/:id/data' do |id|
       helper = PayloadHelper.new(params)
-      if helper.payload.save
+      if helper.payload.nil?
+        status 400
+      elsif helper.payload.save
         status 200
       else
         status 403
