@@ -24,8 +24,8 @@ class PayloadHelper
                       os: UserAgent.parse(params_hash["userAgent"]).platform).id,
                       display_id: Display.find_or_create_by(width: params_hash["resolutionWidth"], height: params_hash["resolutionHeight"]).id,
                       ip: params_hash["ip"],
-                      client_id: Client.find_by(:identifier == @client).id
-                      params: @params
+                      client_id: Client.find_by(:identifier == @client).id,
+                      param: "#{@params}"
                       })
   end
 end
