@@ -4,13 +4,13 @@ class PayloadHelper
   attr_reader :returned
 
   def initialize(params)
-    if params.nil?
-      @params = {}
+    if params["payload"].nil?
+      @returned = [400, PayloadRequest.create().errors.full_messages.join(" ,")]
     else
       @params = params
+      @client = params["id"]
+      payload = create_payload_requests(parse(params))
     end
-    @client = params["id"]
-    payload = create_payload_requests(parse(params))
     # return_status(payload)
   end
 
@@ -43,6 +43,8 @@ class PayloadHelper
     #if payloadrequest has an entry with matching params return 403
     elsif PayloadRequest.where(param: @params)
       @returned = [403, payload.errors.full_messages.join(" ,")]
+    # else
+    #   @returned = [400, payload.errors.full_messages.join(" ,")]
     end
     # if @params["payload"].nil?
     #   @payload = nil

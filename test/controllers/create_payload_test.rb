@@ -64,7 +64,6 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_returns_400_if_missing_payload
-    skip
     assert_equal 0, PayloadRequest.count
 
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
@@ -74,7 +73,7 @@ class CreatePayloadTest < Minitest::Test
 
     assert_equal 0, PayloadRequest.count
     assert_equal 400, last_response.status
-    assert_equal "there is no data", last_response.body
+    assert_equal "Url can't be blank ,Requested at can't be blank ,Responded in can't be blank ,Referrer can't be blank ,Request type can't be blank ,Event name can't be blank ,User can't be blank ,Display can't be blank ,Ip can't be blank ,Param can't be blank", last_response.body
   end
 
   def test_return_403_if_not_a_know_root_url
