@@ -72,10 +72,10 @@ class CreatePayloadTest < Minitest::Test
 
     assert_equal 0, PayloadRequest.count
     assert_equal 400, last_response.status
+    assert_equal "there is no data", last_response.body
   end
 
   def test_return_403_if_not_a_know_root_url
-    # skip
     assert_equal 0, PayloadRequest.count
 
     post '/sources/jumpstartlab/data',
