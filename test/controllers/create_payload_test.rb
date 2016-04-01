@@ -30,6 +30,7 @@ class CreatePayloadTest < Minitest::Test
 
     assert_equal 1, PayloadRequest.count
     assert_equal 200, last_response.status
+    assert_equal "happy", last_response.body
     assert_equal 37, PayloadRequest.first.responded_in
     assert_equal "http://jumpstartlab.com/blog", Url.first.address
   end
@@ -64,6 +65,7 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_returns_400_if_missing_payload
+    skip
     assert_equal 0, PayloadRequest.count
 
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }

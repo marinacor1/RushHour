@@ -24,8 +24,8 @@ module RushHour
 
     post '/sources/:id/data' do |id|
       helper = PayloadHelper.new(params)
-      status = helper[0]
-      body = helper[1]
+      status = helper.returned[0]
+      body = helper.returned[1]
       # status, body = helper
     end
   end
