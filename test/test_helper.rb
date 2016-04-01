@@ -42,7 +42,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "1"
                           })
 
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
@@ -55,7 +56,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "120", height: "180").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "2"
                           })
 
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
@@ -68,7 +70,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
-                            ip: "99.99.99.9999"
+                            ip: "99.99.99.9999",
+                            param: "3"
                           })
 
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://yahoo.com/").id,
@@ -81,7 +84,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Windows; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "4000", height: "4000").id,
-                            ip: "10.00.00.000"
+                            ip: "10.00.00.000",
+                            param: "4"
                           })
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
                             requested_at: "2013-02-16 21:38:28 -0700",
@@ -93,7 +97,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Windows; Intel Mac OS X 10_8_2) ").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "192", height: "128").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "5"
                           })
 
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
@@ -106,8 +111,10 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Windows; Intel Mac OS X 10_8_2) ").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "120", height: "1280").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "6"
                           })
+
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
                             requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 37,
@@ -118,7 +125,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "7"
                           })
 
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
@@ -131,7 +139,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "190", height: "123").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "8"
                           })
 
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
@@ -144,7 +153,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "9"
                           })
 
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
@@ -157,7 +167,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "10"
                           })
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
@@ -169,8 +180,10 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
-                            ip: "99.99.99.9999"
+                            ip: "99.99.99.9999",
+                            param: "11"
                           })
+
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
                             responded_in: 100,
@@ -181,8 +194,10 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
-                            ip: "99.99.99.9999"
+                            ip: "99.99.99.9999",
+                            param: "12"
                           })
+
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
                             responded_in: 100,
@@ -193,8 +208,10 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
-                            ip: "99.99.99.9999"
+                            ip: "99.99.99.9999",
+                            param: "13"
                           })
+
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
                             requested_at: "2014-02-16 21:38:28 -0700",
                             responded_in: 10,
@@ -205,8 +222,10 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Linux; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "9000", height: "9000").id,
-                            ip: "99.99.99.9999"
+                            ip: "99.99.99.9999",
+                            param: "14"
                           })
+
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
                             requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 7,
@@ -217,7 +236,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "15"
                           })
   end
 
@@ -232,7 +252,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "16"
                           })
   end
 
@@ -247,7 +268,8 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            ip: "63.29.38.211"
+                            ip: "63.29.38.211",
+                            param: "17"
                           })
   end
 
