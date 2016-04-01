@@ -36,7 +36,6 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_403_returned_when_payload_has_already_been_recieved
-    skip
     assert_equal 0, PayloadRequest.count
 
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
@@ -61,7 +60,7 @@ class CreatePayloadTest < Minitest::Test
 
       assert_equal 403, last_response.status
       assert_equal 1, PayloadRequest.count
-      assert_equal "This is a duplicate", last_response.body
+      assert_equal "sdlfkjsdf", last_response.body
   end
 
   def test_returns_400_if_missing_payload
