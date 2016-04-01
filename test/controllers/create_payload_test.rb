@@ -77,7 +77,6 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_return_403_if_not_a_know_root_url
-    skip
     assert_equal 0, PayloadRequest.count
 
     post '/sources/jumpstartlab/data',
@@ -89,7 +88,7 @@ class CreatePayloadTest < Minitest::Test
 
     assert_equal 0, PayloadRequest.count
     assert_equal 403, last_response.status
-    assert_equal "not a known client root url", last_response.body
+    assert_equal "Client does not exist", last_response.body
   end
 
 end

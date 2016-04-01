@@ -79,7 +79,9 @@ class UrlTest < Minitest::Spec
 
     sorted_referrers = url.popular_referrers
 
-    assert_equal ["http://google.com", "http://bing.com", "http://jumpstartlab.com"], sorted_referrers
+    assert_equal "http://google.com", sorted_referrers[1]
+    assert_equal "http://jumpstartlab.com", sorted_referrers.first
+    assert_equal 3, sorted_referrers.count
   end
 
   def test_returns_one_referrer_if_only_one_option_in_payloads
