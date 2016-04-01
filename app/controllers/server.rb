@@ -1,5 +1,6 @@
 module RushHour
   class Server < Sinatra::Base
+    attr_reader :helper
     not_found do
       erb :error
     end
@@ -23,25 +24,12 @@ module RushHour
     end
 
     post '/sources/:id/data' do |id|
-      helper = PayloadHelper.new(params)
-      if helper.payload.nil?
-        status 400
-      elsif helper.payload == :unknown_client
-        status 403
-        # binding.pry
-        # body helper.payload.errors.full_messages.join(", ")
-        body "not a known client root url"
-      elsif helper.payload.save
-        status 200
-      else
-        status 403
-        body "This is a duplicate"
-      end
+      @helper = PayloadHelper.new(params)
+      status, body = @helper.returned
     end
 
     get '/sources/:IDENTIFIER' do |id|
       client = Client.find_by(identifier: id)
-      # binding.pry
       payload = PayloadRequest.find_by(client_id: client.id)
       @url = Url.find_by(id: payload.url_id)
       erb :show

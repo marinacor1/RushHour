@@ -35,4 +35,30 @@ class PayloadRequest < ActiveRecord::Base
     # TODO do we want this uniq? self.select(:event_name).uniq
     self.order(event_name: :desc)
   end
+
+  def self.order_requested_urls
+    sorted_ids = PayloadRequest.all.group(:url_id).count.sort_by do |attribute, count|
+      count
+    end.reverse
+    sorted_ids.map do |id_pair|
+      Url.where(id: id_pair[0]).first.address
+    end
+  end
+
+  def show_status
+    if self.nil?
+      [400, self.errors.full_messages.join(", ")]
+    elsif self == :unknown_client
+      status 403
+      body "not a known client root url"
+      # body errors.full_messages.join(", ")
+    elsif self.save
+      status = 200
+    else
+      status 403
+      body "This is a duplicate"
+      # body errors.full_messages.join(", ")
+    end
+  end
+
 end

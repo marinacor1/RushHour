@@ -12,7 +12,7 @@ class PayloadHelperTest < Minitest::Spec
      id = "jumpstartlab"
      Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
      @helper = PayloadHelper.new(@params)
-     @helper.payload.save
+    #  @helper.payload.save
   end
 
   def test_parse_produces_payload_hash
@@ -29,5 +29,14 @@ class PayloadHelperTest < Minitest::Spec
     assert RequestType.exists?(verb: "GET")
     assert User.exists?(browser: "Chrome")
     assert Display.exists?(width: "1920")
+  end
+
+  def test_can_return_200_for_good_client_and_payload
+    assert_equal 200, @helper.returned[0]
+    assert_equal "happy", @helper.returned[1]
+  end
+
+  def test_can_return_400_when_no_payload_data
+
   end
 end
