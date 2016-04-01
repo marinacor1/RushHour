@@ -28,6 +28,8 @@ module RushHour
         status 400
       elsif helper.payload == :unknown_client
         status 403
+        # binding.pry
+        # body helper.payload.errors.full_messages.join(", ")
         body "not a known client root url"
       elsif helper.payload.save
         status 200
@@ -36,5 +38,14 @@ module RushHour
         body "This is a duplicate"
       end
     end
+
+    get '/sources/:IDENTIFIER' do |id|
+      client = Client.find_by(identifier: id)
+      # binding.pry
+      payload = PayloadRequest.find_by(client_id: client.id)
+      @url = Url.find_by(id: payload.url_id)
+      erb :show
+    end
+
   end
 end
