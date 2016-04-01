@@ -1,6 +1,7 @@
 require 'json'
 class PayloadHelper
   attr_accessor :payload
+  attr_reader :returned
 
   def initialize(params)
     if params.nil?
@@ -34,11 +35,12 @@ class PayloadHelper
       param: "#{@params}"
       })
     if payload.save
-      [200, "happy"]
+      # binding.pry
+      @returned = [200, "happy"]
     elsif !Client.find_by(:identifier == @client)
-      [400, payload.errors.full_messages.join(" ,")]
+      @returned = [400, payload.errors.full_messages.join(" ,")]
     elsif @params.nil?
-      [403, payload.errors.full_messages.join(" ,")]
+      @returned = [403, payload.errors.full_messages.join(" ,")]
     end
     # if @params["payload"].nil?
     #   @payload = nil
