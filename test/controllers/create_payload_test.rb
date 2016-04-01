@@ -35,6 +35,7 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_403_returned_when_payload_has_already_been_recieved
+    skip
     assert_equal 0, PayloadRequest.count
 
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
@@ -76,6 +77,7 @@ class CreatePayloadTest < Minitest::Test
   end
 
   def test_return_403_if_not_a_know_root_url
+    skip
     assert_equal 0, PayloadRequest.count
 
     post '/sources/jumpstartlab/data',

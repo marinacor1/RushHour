@@ -24,21 +24,9 @@ module RushHour
 
     post '/sources/:id/data' do |id|
       helper = PayloadHelper.new(params)
-      if helper.payload.nil?
-        status 400
-        body "there is no data"
-        # body helper.payload.errors.full_messages.join(", ")
-      elsif helper.payload == :unknown_client
-        status 403
-        body "not a known client root url"
-        # body helper.errors.full_messages.join(", ")
-      elsif helper.payload.save
-        status 200
-      else
-        status 403
-        body "This is a duplicate"
-        # body helper.errors.full_messages.join(", ")
-      end
+      status = helper[0]
+      body = helper[1]
+      # status, body = helper
     end
   end
 end
