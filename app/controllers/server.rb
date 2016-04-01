@@ -24,6 +24,7 @@ module RushHour
 
     post '/sources/:id/data' do |id|
       helper = PayloadHelper.new(params)
+      binding.pry
       if helper.payload.save
         status 200
       else

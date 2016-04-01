@@ -1,8 +1,9 @@
 require 'json'
 class PayloadHelper
   attr_accessor :payload
-  
+
   def initialize(params)
+    @params = params
     @client = params["id"]
     create_payload_requests(parse(params))
   end
@@ -24,6 +25,7 @@ class PayloadHelper
                       display_id: Display.find_or_create_by(width: params_hash["resolutionWidth"], height: params_hash["resolutionHeight"]).id,
                       ip: params_hash["ip"],
                       client_id: Client.find_by(:identifier == @client).id
+                      params: @params
                       })
   end
 end
