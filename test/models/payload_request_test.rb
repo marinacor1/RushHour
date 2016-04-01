@@ -39,6 +39,17 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal 15, PayloadRequest.all.count
   end
 
+  def test_can_list_urls_by_num_times_requested
+    create_payloads
+
+    url_list = PayloadRequest.order_requested_urls
+    assert_equal "http://jumpstartlab.com/", url_list[0]
+
+    assert_equal 3, url_list.count
+    assert url_list.include?("http://turing.io/")
+    assert url_list.include?("http://yahoo.com/")
+  end
+
   def test_it_calculates_average_response_time
     create_payloads
 
@@ -88,15 +99,13 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal 15, events.count
   end
 
-  def test_it_orders_events_in_order_of_frequency_if_same
-    single_payload
+  def test_it_orders_events_in_order_of_frequency_if_only_one
     single_payload
 
     events = PayloadRequest.order_events
-    assert_equal "socialLogin", events.first.event_name
-    assert_equal "socialLogin", events.last.event_name
 
-    assert_equal ["socialLogin", "socialLogin"], events.map {|event| event.event_name}
+    assert_equal 1, events.count
+    assert_equal ["socialLogin"], events.map {|event| event.event_name}
   end
 
   def test_payload_is_valid 
