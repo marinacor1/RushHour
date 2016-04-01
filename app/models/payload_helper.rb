@@ -35,11 +35,13 @@ class PayloadHelper
       param: "#{@params}"
       })
     if payload.save
-      # binding.pry
       @returned = [200, "happy"]
-    elsif !Client.find_by(:identifier == @client)
-      @returned = [400, payload.errors.full_messages.join(" ,")]
-    elsif @params.nil?
+    # elsif !Client.find_by(:identifier == @client)
+    #   @returned = [400, payload.errors.full_messages.join(" ,")]
+    # elsif @params.nil?
+    #   @returned = [403, payload.errors.full_messages.join(" ,")]
+    #if payloadrequest has an entry with matching params return 403
+    elsif PayloadRequest.where(param: @params)
       @returned = [403, payload.errors.full_messages.join(" ,")]
     end
     # if @params["payload"].nil?

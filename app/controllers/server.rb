@@ -1,5 +1,6 @@
 module RushHour
   class Server < Sinatra::Base
+    attr_reader :helper
     not_found do
       erb :error
     end
@@ -23,9 +24,9 @@ module RushHour
     end
 
     post '/sources/:id/data' do |id|
-      helper = PayloadHelper.new(params)
-      status = helper.returned[0]
-      body = helper.returned[1]
+      @helper = PayloadHelper.new(params)
+      status  @helper.returned[0]
+      body  @helper.returned[1]
       # status, body = helper
     end
   end
