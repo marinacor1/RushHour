@@ -53,7 +53,6 @@ class PayloadRequest < ActiveRecord::Base
       body "not a known client root url"
       # body errors.full_messages.join(", ")
     elsif self.save
-      # binding.pry
       status = 200
     else
       status 403

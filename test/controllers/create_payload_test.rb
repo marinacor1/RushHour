@@ -48,8 +48,8 @@ class CreatePayloadTest < Minitest::Test
      "captures"=>["jumpstartlab"],
      "id"=>"jumpstartlab"}
 
-    #  assert_equal 1, PayloadRequest.count
-    #  assert_equal 200, last_response.status
+     assert_equal 1, PayloadRequest.count
+     assert_equal 200, last_response.status
 
      post '/sources/jumpstartlab/data',
      {"payload"=>
@@ -60,8 +60,6 @@ class CreatePayloadTest < Minitest::Test
 
       assert_equal 1, PayloadRequest.count
       assert_equal 403, last_response.status
-      # binding.pry
-      # assert_equal 403, Server.helper.returned[0]
       assert_equal "Param has already been taken", last_response.body
   end
 
