@@ -17,6 +17,8 @@ class PayloadHelper
   def create_payload_requests(params_hash)
     if @params["payload"].nil?
       @payload = nil
+    elsif !Client.find_by(:identifier == @client)
+      @payload = :unknown_client
     else
       @payload = PayloadRequest.new({url_id: Url.find_or_create_by(address: params_hash["url"]).id,
                         requested_at: params_hash["requestedAt"],

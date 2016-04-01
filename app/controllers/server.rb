@@ -26,11 +26,14 @@ module RushHour
       helper = PayloadHelper.new(params)
       if helper.payload.nil?
         status 400
+      elsif helper.payload == :unknown_client
+        status 403
+        body "not a known client root url"
       elsif helper.payload.save
         status 200
       else
         status 403
-        body "This is working"
+        body "This is a duplicate"
       end
     end
   end
