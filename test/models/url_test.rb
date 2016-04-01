@@ -11,19 +11,6 @@ class UrlTest < Minitest::Spec
     assert_equal 1, all_sites.count
   end
 
-#TODO should this responsibility lie in payload class?
-
-  def test_can_list_urls_by_num_times_requested
-    create_payloads
-
-    url_list = Url.sort_url_requests
-    assert_equal "http://jumpstartlab.com/", url_list[0]
-
-    assert_equal 3, url_list.count
-    assert url_list.include?("http://turing.io/")
-    assert url_list.include?("http://yahoo.com/")
-  end
-
   def test_returns_max_response_time_by_url
     create_payloads
 
@@ -64,7 +51,6 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_avg_for_all_responses_with_diff_url
-    skip 
     create_payloads
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
@@ -87,19 +73,19 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_three_most_popular_referrers
-   create_payloads
+    create_payloads
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
     sorted_referrers = url.popular_referrers
 
-    assert_equal ["http://jumpstartlab.com", "http://google.com", "http://askjeeves.com"], sorted_referrers
+    assert_equal ["http://google.com", "http://bing.com", "http://jumpstartlab.com"], sorted_referrers
   end
 
   def test_returns_one_referrer_if_only_one_option_in_payloads
-   single_turing_payload
-   single_turing_payload
-   single_turing_payload
+    single_turing_payload
+    single_turing_payload
+    single_turing_payload
 
     url = Url.find_by(address: "http://turing.io/")
 
@@ -120,16 +106,14 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_three_most_popular_user_agents
-    skip
-   create_payloads
-   single_payload
+    create_payloads
+    single_payload
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
     user_agents = url.popular_user_agents
 
-    assert_equal [["Macintosh", "Safari"], ["Macintosh", "Chrome"], ["Windows", "Intel"]], user_agents
-    assert_equal 3, user_agents.count
+    assert_equal [[["Macintosh", "Safari"]], [["Macintosh", "Chrome"]], [["Windows", "Intel"]]], user_agents
   end
 
   def test_returns_single_user_agent_if_only_one_popular_option
@@ -141,7 +125,7 @@ class UrlTest < Minitest::Spec
 
     user_agents = url.popular_user_agents
 
-    assert_equal [["Macintosh", "Chrome"]], user_agents
+    assert_equal [[["Macintosh", "Chrome"]]], user_agents
     assert_equal 1, user_agents.count
   end
 
@@ -152,7 +136,7 @@ class UrlTest < Minitest::Spec
 
     user_agents = url.popular_user_agents
 
-    assert_equal [["Macintosh", "Chrome"]], user_agents
+    assert_equal [[["Macintosh", "Chrome"]]], user_agents
     assert_equal 1, user_agents.count
 
   end

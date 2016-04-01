@@ -39,6 +39,17 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal 15, PayloadRequest.all.count
   end
 
+  def test_can_list_urls_by_num_times_requested
+    create_payloads
+
+    url_list = PayloadRequest.order_requested_urls
+    assert_equal "http://jumpstartlab.com/", url_list[0]
+
+    assert_equal 3, url_list.count
+    assert url_list.include?("http://turing.io/")
+    assert url_list.include?("http://yahoo.com/")
+  end
+
   def test_it_calculates_average_response_time
     create_payloads
 

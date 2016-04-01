@@ -14,7 +14,7 @@ class DisplayTest < Minitest::Spec
     assert all_verbs.include?("DELETE")
     assert all_verbs.include?("GET")
     assert_equal all_verbs, all_verbs.uniq
-    assert_equal Array, all.verbs.class
+    assert_equal Array, all_verbs.class
   end
 
   def test_request_type_knows_most_frequent_request_type

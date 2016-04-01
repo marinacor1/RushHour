@@ -33,4 +33,13 @@ class PayloadRequest < ActiveRecord::Base
     # TODO do we want this uniq? self.select(:event_name).uniq
     self.order(event_name: :desc)
   end
+
+  def self.order_requested_urls
+    sorted_ids = PayloadRequest.all.group(:url_id).count.sort_by do |attribute, count|
+      count
+    end.reverse
+    sorted_ids.map do |id_pair|
+      Url.where(id: id_pair[0]).first.address
+    end
+  end
 end
