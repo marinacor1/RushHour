@@ -15,6 +15,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_id, presence: true
   validates :display_id, presence: true
   validates :ip, presence: true
+  validates :param, presence: true
+  validates :param, uniqueness: true
 
   def self.average_response_time
     average = self.average(:responded_in)

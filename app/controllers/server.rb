@@ -8,10 +8,13 @@ module RushHour
       client = Client.new(identifier: params[:identifier], root_url: params[:rootUrl] )
       if client.save
         status 200
-        body
+        body "identifier: #{client.identifier}"
+      elsif Client.find_by(:identifier == params[:identifier])
+        status 403
+        body client.errors.full_messages.join(", ")
       else
         status 400
-        #body client.errors.full_messages.join(", ")
+        body client.errors.full_messages.join(", ")
       end
       # returned_info = [200, "The body"]
       # client_parser = ClientParser.new(params)
@@ -19,5 +22,19 @@ module RushHour
       # status, body = client_parser
     end
 
+    post '/sources/:id/data' do |id|
+      helper = PayloadHelper.new(params)
+      if helper.payload.nil?
+        status 400
+      elsif helper.payload == :unknown_client
+        status 403
+        body "not a known client root url"
+      elsif helper.payload.save
+        status 200
+      else
+        status 403
+        body "This is a duplicate"
+      end
+    end
   end
 end
