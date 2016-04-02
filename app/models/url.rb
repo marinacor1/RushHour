@@ -7,33 +7,6 @@ class Url < ActiveRecord::Base
   has_many :referrers, through: :payload_requests
   has_many :users, through: :payload_requests
 
-  def max_response_time
-    payload_requests.maximum(:responded_in)
-  end
-
-  def min_response_time
-    payload_requests.minimum(:responded_in)
-  end
-
-  def min_response_time
-    payload_requests.minimum(:responded_in)
-  end
-
-  def sorted_response_times
-    payloads = payload_requests.order(responded_in: :desc)
-    x = payloads.map { |payload| payload.responded_in }
-  end
-
-  def average_response_time
-    payload_requests.average(:responded_in).to_f.round(2)
-  end
-
-  def all_verbs
-    payload_requests.map do |payload|
-      RequestType.where(id: payload.request_type_id)[0].verb
-    end
-  end
-
   def popular_referrers
     popular = payload_requests.group(:referrer_id).count
     grouped_referrers = referrers.group(:referred_by).count

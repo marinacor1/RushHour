@@ -73,6 +73,7 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_three_most_popular_referrers
+    skip
     create_payloads
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
