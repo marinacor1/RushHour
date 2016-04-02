@@ -49,10 +49,16 @@ class ClientTest < Minitest::Spec
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
-    assert_equal [["Safari"], ["Chrome"], ["Intel"], ["Aetscape"]], client.most_popular_browsers
+    assert_equal ["Safari", "Chrome", "Intel", "Aetscape"], client.browser_breakdown
   end
 
-# Web browser breakdown across all requests
+  def test_clients_know_os_breakdown
+    #TODO may need to be refactored. array within array.
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    create_payloads
+
+    assert_equal ["Macintosh", "Macintosh", "Windows", "Macintosh"], client.os_breakdown
+  end
 # OS breakdown across all requests
 # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
 end
