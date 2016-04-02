@@ -16,9 +16,7 @@ class PayloadHelper
   end
 
   def parse(params)
-    unless @params["payload"].nil?
-      JSON.parse(params["payload"])
-    end
+    JSON.parse(params["payload"])
   end
 
   def create_payload_requests(params_hash)
