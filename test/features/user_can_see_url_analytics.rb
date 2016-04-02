@@ -29,13 +29,13 @@ class UserCanSeeURLAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
     visit "/sources/jumpstartlab"
-save_and_open_page
     click_link('http://jumpstartlab.com/blog')
-    assert current_path "/sources/jumpstartlab/urls/blog"
-    assert page.has_content?("Max Response time: 37")
-    assert page.has_content?("Min Response time: 37")
-    assert page.has_content?("Average Response time: 37")
-    assert page.has_content? "HTTP Verb(s) associated used to it this URL: [\"GET\"]"
+    assert_equal "/sources/jumpstartlab/urls/blog", current_path
+
+    assert page.has_content?("Max Response Time: 37")
+    assert page.has_content?("Minimum Response Time: 37")
+    assert page.has_content?("Average Response Time: 37.0")
+    assert page.has_content? "HTTP Verbs Used: [\"GET\"]"
   end
 
   def test_user_gets_error_if_no_payloads

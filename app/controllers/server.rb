@@ -26,7 +26,7 @@ module RushHour
       end
     end
 
-    get '/sources/:IDENTIFIER/urls/:RELATIVEPATH' do |id|
+    get '/sources/:id/urls/:path' do |id, path|
       client = Client.find_by(identifier: id)
       payloads = PayloadRequest.where(client_id: client.id)
       @urls = payloads.map {|payload| Url.where(id: payload.url_id)}.flatten
