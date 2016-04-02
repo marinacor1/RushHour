@@ -33,6 +33,7 @@ class PayloadHelper
       client_id: Client.find_by(identifier: @client).id,
       param: "#{@params}"
       })
+
     if payload.save
       @returned = [200, "happy"]
     elsif PayloadRequest.where(param: @params)
