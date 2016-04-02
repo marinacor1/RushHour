@@ -35,13 +35,6 @@ module RushHour
       else
         erb :show_url
       end
-      # payloads = PayloadRequest.where(client_id: client.id)
-      # generate
-      # @urls = payloads.map {|payload| Url.where(id: payload.url_id)}.flatten
-      # if client's root_url + path isn't one of the
-      # client's payload address
-        # then error
-      # else show_url
     end
 
   end
