@@ -39,11 +39,10 @@ class ClientTest < Minitest::Spec
   end
 
   def test_clients_knows_sorted_urls
-    skip
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
-    assert_equal "GET", client.most_popular_urls
+    assert_equal [["http://jumpstartlab.com/"], [], [], []], client.most_popular_urls
   end
 
 # List of URLs listed form most requested to least requested

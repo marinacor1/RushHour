@@ -36,12 +36,12 @@ class Client < ActiveRecord::Base
 
   def most_popular_urls
     popular = payload_requests.group(:user_id).count
-    sorted = popular.sort_by do |user_id, count|
+    sorted = popular.sort_by do |url_id, count|
       count
     end.reverse
-    sorted.map do |user_id, count|
-      User.where(id: user_id).pluck(:os, :browser)
-    end[0..2]
+    sorted.map do |url_id, count|
+      Url.where(id: url_id).pluck(:address)
+    end
   end
 
 end
