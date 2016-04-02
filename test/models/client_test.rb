@@ -45,7 +45,13 @@ class ClientTest < Minitest::Spec
     assert_equal [["http://jumpstartlab.com/"], [], [], []], client.most_popular_urls
   end
 
-# List of URLs listed form most requested to least requested
+  def test_clients_know_browser_breakdown
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    create_payloads
+
+    assert_equal [["Safari"], ["Chrome"], ["Intel"], ["Aetscape"]], client.most_popular_browsers
+  end
+
 # Web browser breakdown across all requests
 # OS breakdown across all requests
 # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)

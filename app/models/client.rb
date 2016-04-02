@@ -44,4 +44,15 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def most_popular_browsers
+    popular = payload_requests.group(:user_id).count
+    sorted = popular.sort_by do |user_id, count|
+      count
+    end.reverse
+    sorted.map do |user_id, count|
+      User.where(id: user_id).pluck(:browser)
+    end
+  end
+
+
 end
