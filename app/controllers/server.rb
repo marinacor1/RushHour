@@ -28,10 +28,12 @@ module RushHour
       status, body = @helper.returned
     end
 
-    get '/sources/:IDENTIFIER' do |id|
+    get '/sources/:id' do |id|
       client = Client.find_by(identifier: id)
-      payload = PayloadRequest.find_by(client_id: client.id)
-      @url = Url.find_by(id: payload.url_id)
+      payloads = PayloadRequest.where(client_id: client.id)
+      # binding.pry
+      @urls = payloads.map {|payload| Url.where(id: payload.url_id)}
+      # @url = Url.where(id: payload.url_id)
       erb :show
     end
 
