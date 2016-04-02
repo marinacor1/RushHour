@@ -54,12 +54,19 @@ class UserCanSeeURLAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
     #  client = Client.all.last
      visit "/sources/jumpstartlab"
-     save_and_open_page
      assert page.has_content? "jumpstartlab"
      assert page.has_content? "GET"
      assert page.has_content? 37
      assert page.has_content? "jumpstartlab.com/blog"
      assert page.has_content? "jumpstartlab.com/article"
+  end
+
+  def test_user_will_get_error_if_client_id_does_not_exist
+    assert_equal 0, Client.all.count
+    visit '/sources/jumpstartlab'
+#TODO add id later
+    assert page.has_content? "Client does not exist."
+
   end
 
 end
