@@ -8,24 +8,6 @@ class Client < ActiveRecord::Base
   validates :root_url, presence: true
   validates :root_url, uniqueness: true
 
-  def average_response_time
-    payload_requests.average(:responded_in).to_f.round(2)
-  end
-
-  def max_response_time
-    payload_requests.maximum(:responded_in).to_f.round(2)
-  end
-
-  def min_response_time
-    payload_requests.minimum(:responded_in).to_f.round(2)
-  end
-
-  def all_verbs
-    payload_requests.map do |payload|
-      RequestType.where(id: payload.request_type_id)[0].verb
-    end
-  end
-
   def popular_request_type
     popular = payload_requests.group(:request_type_id).count
     sorted = popular.sort_by do |id, count|
