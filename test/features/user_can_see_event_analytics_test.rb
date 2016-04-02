@@ -18,7 +18,6 @@ class UserCanSeeEventAnalytics < Minitest::Test
   end
 
   def test_user_can_see_event_analytics
-    skip
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
     post '/sources/jumpstartlab/data',
     {"payload"=>
@@ -28,11 +27,10 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
-     assert page.has_content? "21: 1"
+     assert page.has_content? "2100 hrs: 1"
    end
 
   def test_user_can_see_event_analytics_for_two_payloads
-    skip
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
     post '/sources/jumpstartlab/data',
     {"payload"=>
@@ -49,8 +47,8 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
-     assert page.has_content? "21: 1"
-     assert page.has_content? "13: 1"
+     assert page.has_content? "2100 hrs: 1"
+     assert page.has_content? "1300 hrs: 1"
    end
 
   def test_user_can_see_event_analytics_for_three_payloads_with_same_hour
@@ -77,9 +75,9 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
-     save_and_open_page
-     assert page.has_content? "21: 1"
-     assert page.has_content? "13: 2"
+
+     assert page.has_content? "2100 hrs: 1"
+     assert page.has_content? "1300 hrs: 2"
    end
 
 end
