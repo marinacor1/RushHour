@@ -28,6 +28,7 @@ class UserCanSeeEventAnalytics < Minitest::Test
 
      visit "/sources/jumpstartlab/events/socialLogin"
      assert page.has_content? "2100 hrs: 1"
+     assert page.has_content? "Total: 1"
    end
 
   def test_user_can_see_event_analytics_for_two_payloads
@@ -49,6 +50,8 @@ class UserCanSeeEventAnalytics < Minitest::Test
      visit "/sources/jumpstartlab/events/socialLogin"
      assert page.has_content? "2100 hrs: 1"
      assert page.has_content? "1300 hrs: 1"
+     assert page.has_content? "Total: 2"
+
    end
 
   def test_user_can_see_event_analytics_for_three_payloads_with_same_hour
@@ -77,6 +80,7 @@ class UserCanSeeEventAnalytics < Minitest::Test
      visit "/sources/jumpstartlab/events/socialLogin"
      assert page.has_content? "2100 hrs: 1"
      assert page.has_content? "1300 hrs: 2"
+     assert page.has_content? "Total: 3"
    end
 
    def test_user_gets_error_page_if_event_does_not_exist
