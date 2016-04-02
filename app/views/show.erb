@@ -1,8 +1,10 @@
-<h1><%= Stats for @url %></h1>
-<p>Max Response Time: <%= @url.max_response_time %></p>
-<p>Mind Response Time: <%= @url.min_response_time %></p>
-<p>All Response Times: <%= @url.sorted_response_times %></p>
-<p>Average Response Time: <%= @url.average_response_time %></p>
-<p>HTTP Verbs Used: <%= @url.all_verbs %></p>
-<p>Three Most Popular Referrers: <%= @url.popular_referrers %></p>
-<p>Three Most Popular User Agents: <%= @url.popular_user_agents %></p>
+<% @urls.each do |url| %>
+  <h1>Stats for <%= url.address %></h1>
+  <p>Max Response Time: <%= url.max_response_time %></p>
+  <p>Minimum Response Time: <%= url.min_response_time %></p>
+  <p>All Response Times: <%= url.sorted_response_times %></p>
+  <p>Average Response Time: <%= url.average_response_time %></p>
+  <p>HTTP Verbs Used: <%= url.all_verbs %></p>
+  <p>Three Most Popular Referrers: <%= url.popular_referrers %></p>
+  <p>Three Most Popular User Agents: <%= url.popular_user_agents %></p>
+<% end %>
