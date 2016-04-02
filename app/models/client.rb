@@ -65,12 +65,16 @@ class Client < ActiveRecord::Base
   end
 
   def resolution_breakdown
-    popular = payload_requests.group(:resolution_id).count
-    sorted = popular.sort_by do |resolution_id, count|
+    popular = payload_requests.group(:display_id).count
+    sorted = popular.sort_by do |display_id, count|
       count
     end.reverse
-    sorted.map do |resolution_id, count|
-      Displayer.where(id: resolution_id).pluck(:os)
+    displays = sorted.map do |display_id, count|
+      Display.where(id: display_id)
     end.flatten
+      displays.map do |display|
+        "#{display.width} x #{display.height}"
+      end
   end
+
 end

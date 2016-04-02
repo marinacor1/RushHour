@@ -68,11 +68,10 @@ class ClientTest < Minitest::Spec
   end
 
   def test_clients_know_screen_resolutions
-    skip
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
-    assert_equal ["1900 X 2343", "Macintosh", "Windows", "Macintosh"], client.resolution_breakdown
+    assert_equal ["1920 x 1280", "190 x 123", "192 x 128", "120 x 180", "120 x 1280"], client.resolution_breakdown
   end
 # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
 end
