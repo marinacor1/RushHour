@@ -47,7 +47,6 @@ module RushHour
       @hour_count = hour_collection.group_by {|h| h}
       @hour_count.map {|k,v| @hour_count[k] = v.count}
       @hour_count.default = "0"
-      #"21"=>1, "13"=>2}
         erb :show_event
     end
 
