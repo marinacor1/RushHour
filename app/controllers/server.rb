@@ -42,7 +42,7 @@ module RushHour
       client_id = Client.find_by(identifier: id).id
       event_payloads = PayloadRequest.where(client_id: client_id, event_name: event )
       if event_payloads.empty?
-        erb: event_error
+        erb :event_error
       else
         hour_collection = event_payloads.map do |payload|
           payload.param.split[1].split(":")[0]

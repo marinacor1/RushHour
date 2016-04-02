@@ -83,7 +83,7 @@ class UserCanSeeEventAnalytics < Minitest::Test
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
 
      visit "/sources/jumpstartlab/events/socialLogin"
-    #  save_and_open_page
+     save_and_open_page
      assert page.has_content? "Event does not exist."
    end
 
