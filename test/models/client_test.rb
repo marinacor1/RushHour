@@ -64,7 +64,7 @@ class ClientTest < Minitest::Spec
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
-    assert_equal ["Macintosh", "Macintosh", "Windows", "Macintosh"], client.resolution_breakdown
+    assert_equal ["1900 X 2343", "Macintosh", "Windows", "Macintosh"], client.resolution_breakdown
   end
 # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
 end
