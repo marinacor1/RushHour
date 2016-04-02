@@ -30,8 +30,7 @@ class PayloadHelper
       os: UserAgent.parse(params_hash["userAgent"]).platform).id,
       display_id: Display.find_or_create_by(width: params_hash["resolutionWidth"], height: params_hash["resolutionHeight"]).id,
       ip: params_hash["ip"],
-      # client: Client.find_by(:identifier == @client),
-      client_id: Client.find_by(:identifier == @client).id,
+      client_id: Client.find_by(identifier: @client).id,
       param: "#{@params}"
       })
     if payload.save
