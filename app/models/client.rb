@@ -61,4 +61,9 @@ class Client < ActiveRecord::Base
     end
   end
 
+  def find_relative_path(url)
+    path = url.split('/')[3..-1].join('/')
+    "/sources/#{self.identifier}/urls/#{path}"
+  end
+
 end

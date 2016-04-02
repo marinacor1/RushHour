@@ -5,7 +5,13 @@
 <p>Min Response time across all requests: <%= @client.min_response_time %></p>
 <p>Most frequent request type: <%= @client.popular_request_type %></p>
 <p>List of all HTTP verbs used: <%= @client.all_verbs %></p>
-<p>List of URLs listed from most requested to least requested: <%= @client.most_popular_urls.map {|url| <a href="/sources/#{@client.identifier}/urls/#{url}">} %></p>
+<div>
+<p>List of URLs listed from most requested to least requested:
+  <% @client.most_popular_urls.map do |url| %>
+    <a href=<% @client.find_relative_path(url)> ><%= url %></a>
+  <% end %>
+</p>
+</div>
 <p>Web browser breakdown across all requests: <%= @client.browser_breakdown %></p>
 <p>OS breakdown across all requests: <%= @client.os_breakdown %></p>
 <p>Screen Resolutions across all requests (resolutionWidth x resolutionHeight): <%= @client.resolution_breakdown %></p>

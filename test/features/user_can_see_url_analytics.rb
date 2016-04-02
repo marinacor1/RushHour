@@ -29,7 +29,7 @@ class UserCanSeeURLAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
     visit "/sources/jumpstartlab"
-
+save_and_open_page
     click_link('http://jumpstartlab.com/blog')
     assert current_path "/sources/jumpstartlab/urls/blog"
     assert page.has_content?("Max Response time: 37")
