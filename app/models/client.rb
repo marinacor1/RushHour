@@ -73,9 +73,9 @@ class Client < ActiveRecord::Base
     displays = sorted.map do |display_id, count|
       Display.where(id: display_id)
     end.flatten
-      displays.map do |display|
-        "#{display.width} x #{display.height}"
-      end
+    x = displays.map do |display|
+      "#{display.width} x #{display.height}"
+    end
   end
 
 end
