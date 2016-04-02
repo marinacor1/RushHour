@@ -63,10 +63,19 @@ class UserCanSeeURLAnalytics < Minitest::Test
 
   def test_user_will_get_error_if_client_id_does_not_exist
     assert_equal 0, Client.all.count
+
     visit '/sources/jumpstartlab'
 #TODO add id later
     assert page.has_content? "Client does not exist."
-
   end
 
+  def test_user_will_get_error_if_payload_does_not_exist
+    post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+    assert_equal "jumpstartlab", Client.all.first.identifier
+    assert_equal 0, PayloadRequest.all.count
+
+    visit '/sources/jumpstartlab'
+ save_and_open_page
+    assert page.has_content? "Client does not have any payloads."
+  end
 end

@@ -16,10 +16,12 @@ module RushHour
     end
 
     get '/sources/:id' do |id|
-      if Client.find_by(identifier: id).nil?
+      @client = Client.find_by(identifier: id)
+      if @client.nil?
         erb :client_error
+      elsif PayloadRequest.find_by(client_id: @client.id).nil?
+        erb :payload_error
       else
-        @client = Client.find_by(identifier: id)
         erb :show_client
       end
     end
