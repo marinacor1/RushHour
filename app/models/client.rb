@@ -1,6 +1,7 @@
 
 class Client < ActiveRecord::Base
   has_many :payload_requests
+  has_many :urls, through: :payload_requests
   validates :identifier, presence: true
   validates :identifier, uniqueness: true
   validates :root_url, presence: true
@@ -35,13 +36,13 @@ class Client < ActiveRecord::Base
   end
 
   def most_popular_urls
-    popular = payload_requests.group(:user_id).count
+    popular = payload_requests.group(:url_id).count
     sorted = popular.sort_by do |url_id, count|
       count
     end.reverse
     sorted.map do |url_id, count|
       Url.where(id: url_id).pluck(:address)
-    end
+    end.flatten
   end
 
   def browser_breakdown
@@ -65,12 +66,16 @@ class Client < ActiveRecord::Base
   end
 
   def resolution_breakdown
-    popular = payload_requests.group(:resolution_id).count
-    sorted = popular.sort_by do |resolution_id, count|
+    popular = payload_requests.group(:display_id).count
+    sorted = popular.sort_by do |display_id, count|
       count
     end.reverse
-    sorted.map do |resolution_id, count|
-      Displayer.where(id: resolution_id).pluck(:os)
+    displays = sorted.map do |display_id, count|
+      Display.where(id: display_id)
     end.flatten
+    x = displays.map do |display|
+      "#{display.width} x #{display.height}"
+    end
   end
+
 end

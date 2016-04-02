@@ -17,7 +17,13 @@ module RushHour
 
     get '/sources/:id' do |id|
       @client = Client.find_by(identifier: id)
-      erb :show_client
+      if @client.nil?
+        erb :client_error
+      elsif PayloadRequest.find_by(client_id: @client.id).nil?
+        erb :payload_error
+      else
+        erb :show_client
+      end
     end
 
     get '/sources/:IDENTIFIER/urls/:RELATIVEPATH' do |id|
