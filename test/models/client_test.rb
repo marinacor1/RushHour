@@ -15,7 +15,7 @@ class ClientTest < Minitest::Spec
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            client_id: client.id,
+                            client_id: 1,
                             ip: "63.29.38.211",
                             param: "1"
                           })
@@ -30,7 +30,7 @@ class ClientTest < Minitest::Spec
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
-                            client_id: client.id,
+                            client_id: 1,
                             ip: "63.29.34.211",
                             param: "2"
                           })

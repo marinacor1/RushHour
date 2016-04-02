@@ -43,6 +43,7 @@ module TestHelpers
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
                             ip: "63.29.38.211",
+                            client_id: 1,
                             param: "1"
                           })
 
@@ -57,6 +58,7 @@ module TestHelpers
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "120", height: "180").id,
                             ip: "63.29.38.211",
+                            client_id: 1,
                             param: "2"
                           })
 
@@ -98,6 +100,7 @@ module TestHelpers
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "192", height: "128").id,
                             ip: "63.29.38.211",
+                            client_id: 1,
                             param: "5"
                           })
 
@@ -111,6 +114,7 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Windows; Intel Mac OS X 10_8_2) ").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "120", height: "1280").id,
+                            client_id: 1,
                             ip: "63.29.38.211",
                             param: "6"
                           })
@@ -125,6 +129,7 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            client_id: 1,
                             ip: "63.29.38.211",
                             param: "7"
                           })
@@ -139,6 +144,7 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "190", height: "123").id,
+                            client_id: 1,
                             ip: "63.29.38.211",
                             param: "8"
                           })
@@ -153,6 +159,7 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            client_id: 1,
                             ip: "63.29.38.211",
                             param: "9"
                           })
@@ -168,6 +175,7 @@ module TestHelpers
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
                             ip: "63.29.38.211",
+                            client_id: 1,
                             param: "10"
                           })
     PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://turing.io/").id,
@@ -235,6 +243,7 @@ module TestHelpers
                             user_id: User.find_or_create_by(browser: UserAgent.parse("Aetscape/5.0 (Macintosh; Intel Mac OS X 10_8_2) Aetscape/537.17 (KHTML, like Gecko) Aetscape/24.0.1309.0 Aetscape/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
+                            client_id: 1,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
                             ip: "63.29.38.211",
                             param: "15"
@@ -252,6 +261,7 @@ module TestHelpers
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
                                                  ).id,
                             display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            client_id: 1,
                             ip: "63.29.38.211",
                             param: "16"
                           })
