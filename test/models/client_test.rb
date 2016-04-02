@@ -120,4 +120,11 @@ class ClientTest < Minitest::Spec
     assert client.resolution_breakdown.include? ("120 x 1280")
   end
 
+  def test_client_can_parse_most_popular_urls_for_view
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    url = "http://jumpstartlab.com/blog/1"
+
+    assert_equal "/sources/jumpstartlab/urls/blog/1", client.find_relative_path(url)
+  end
+
 end

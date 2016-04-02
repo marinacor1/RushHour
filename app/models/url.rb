@@ -22,4 +22,5 @@ class Url < ActiveRecord::Base
       User.where(id: user_id).pluck(:os, :browser)
     end[0..2]
   end
+
 end

@@ -26,11 +26,22 @@ module RushHour
       end
     end
 
-    get '/sources/:IDENTIFIER/urls/:RELATIVEPATH' do |id|
+    get '/sources/:id/urls/:path' do |id, path|
       client = Client.find_by(identifier: id)
-      payloads = PayloadRequest.where(client_id: client.id)
-      @urls = payloads.map {|payload| Url.where(id: payload.url_id)}.flatten
-      erb :show_url
+      target_path = client.root_url + "/" + path
+      @url = Url.where(address: target_path).first
+      if @url.nil?
+        erb :url_error
+      else
+        erb :show_url
+      end
+      # payloads = PayloadRequest.where(client_id: client.id)
+      # generate
+      # @urls = payloads.map {|payload| Url.where(id: payload.url_id)}.flatten
+      # if client's root_url + path isn't one of the
+      # client's payload address
+        # then error
+      # else show_url
     end
 
   end

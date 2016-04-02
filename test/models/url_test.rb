@@ -141,6 +141,6 @@ class UrlTest < Minitest::Spec
 
     assert_equal [[["Macintosh", "Chrome"]]], user_agents
     assert_equal 1, user_agents.count
-
   end
+
 end
