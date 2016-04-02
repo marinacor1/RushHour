@@ -17,4 +17,11 @@ class Client < ActiveRecord::Base
   def min_response
     payload_requests.minimum(:responded_in).to_f.round(2)
   end
+
+  def http_verbs
+      payload_requests.map do |payload|
+      RequestType.where(id: payload.request_type_id)[0].verb
+    end
+
+  end
 end

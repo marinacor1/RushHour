@@ -24,8 +24,13 @@ class ClientTest < Minitest::Spec
     assert_equal 7.0, client.min_response
   end
 
-# Max Response time across all requests
-# Min Response time across all requests
+  def test_client_knows_all_http_verbs
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    create_payloads
+
+    assert_equal ["GET", "GET", "GET", "GET", "GET", "GET", "GET", "GET", "POST"], client.http_verbs
+  end
+
 # Most frequent request type
 # List of all HTTP verbs used
 # List of URLs listed form most requested to least requested

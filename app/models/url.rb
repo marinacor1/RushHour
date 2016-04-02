@@ -28,7 +28,7 @@ class Url < ActiveRecord::Base
   end
 
   def all_verbs
-    request_types = payload_requests.map do |payload|
+    payload_requests.map do |payload|
       RequestType.where(id: payload.request_type_id)[0].verb
     end
   end

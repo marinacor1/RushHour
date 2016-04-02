@@ -238,7 +238,7 @@ module TestHelpers
                             requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 7,
                             referrer_id: Referrer.find_or_create_by(referred_by:"http://jumpstartlab.com").id,
-                            request_type_id: RequestType.find_or_create_by(verb: "GET").id,
+                            request_type_id: RequestType.find_or_create_by(verb: "POST").id,
                             event_name: "socialLogin",
                             user_id: User.find_or_create_by(browser: UserAgent.parse("Aetscape/5.0 (Macintosh; Intel Mac OS X 10_8_2) Aetscape/537.17 (KHTML, like Gecko) Aetscape/24.0.1309.0 Aetscape/537.17").browser,
                                                  os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
