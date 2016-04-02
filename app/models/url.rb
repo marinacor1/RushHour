@@ -2,6 +2,7 @@ require_relative 'payload_request'
 require_relative 'request_type'
 
 class Url < ActiveRecord::Base
+  include Analytics
   has_many :payload_requests
   has_many :referrers, through: :payload_requests
   has_many :users, through: :payload_requests
@@ -28,7 +29,7 @@ class Url < ActiveRecord::Base
   end
 
   def all_verbs
-    request_types = payload_requests.map do |payload|
+    payload_requests.map do |payload|
       RequestType.where(id: payload.request_type_id)[0].verb
     end
   end
