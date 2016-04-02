@@ -3,13 +3,20 @@ require_relative "../test_helper"
 class ClientHelperTest < Minitest::Spec
   include TestHelpers
 
-  def test_can_create_client_with_valid_attributes
+  def test_can_create_multiple_clients_with_valid_attributes
     params = {"identifier": "jumpstartlab", "rootUrl": "http://jumpstartlab.com"}
     client_helper = ClientHelper.new(params)
 
     assert_equal 200, client_helper.returned[0]
     assert_equal "identifier: jumpstartlab", client_helper.returned[1]
     assert_equal 1, Client.all.count
+
+    params = {"identifier": "google", "rootUrl": "http://google.com"}
+    client_helper = ClientHelper.new(params)
+
+    assert_equal 200, client_helper.returned[0]
+    assert_equal "identifier: google", client_helper.returned[1]
+    assert_equal 2, Client.all.count
   end
 
   def test_403_if_client_already_exists
