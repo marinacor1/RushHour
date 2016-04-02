@@ -18,7 +18,6 @@ class UserCanSeeURLAnalytics < Minitest::Test
   end
 
   def test_user_can_see_url_analytics
-    skip
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
     assert_equal "jumpstartlab", Client.all.first.identifier
 

@@ -29,8 +29,8 @@ module RushHour
     get '/sources/:id/urls/:path' do |id, path|
       client = Client.find_by(identifier: id)
       target_path = client.root_url + "/" + path
-      @url = Url.where(address: target_path)
-      if @url.empty?
+      @url = Url.where(address: target_path).first
+      if @url.nil?
         erb :url_error
       else
         erb :show_url
