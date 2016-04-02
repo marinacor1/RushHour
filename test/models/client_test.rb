@@ -49,14 +49,22 @@ class ClientTest < Minitest::Spec
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
-    assert_equal ["Safari", "Chrome", "Intel", "Aetscape"], client.browser_breakdown
+    assert_equal 4, client.browser_breakdown.count
+    assert client.browser_breakdown.include?("Safari")
+    assert client.browser_breakdown.include?("Chrome")
+    assert client.browser_breakdown.include?("Intel")
+    assert client.browser_breakdown.include?("Aetscape")
+    assert_equal Array, client.browser_breakdown.class
   end
 
   def test_clients_know_os_breakdown
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
-    assert_equal ["Macintosh", "Macintosh", "Windows", "Macintosh"], client.os_breakdown
+    assert_equal 4, client.os_breakdown.count
+    assert client.os_breakdown.include?("Macintosh")
+    assert client.os_breakdown.include?("Windows")
+    assert_equal Array, client.os_breakdown.class
   end
 
   def test_clients_know_screen_resolutions
@@ -64,7 +72,7 @@ class ClientTest < Minitest::Spec
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
-    assert_equal ["Macintosh", "Macintosh", "Windows", "Macintosh"], client.resolution_breakdown
+    assert_equal ["1900 X 2343", "Macintosh", "Windows", "Macintosh"], client.resolution_breakdown
   end
 # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
 end
