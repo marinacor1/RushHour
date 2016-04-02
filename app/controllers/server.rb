@@ -27,5 +27,13 @@ module RushHour
       @helper = PayloadHelper.new(params)
       status, body = @helper.returned
     end
+
+    get '/sources/:id' do |id|
+      client = Client.find_by(identifier: id)
+      payloads = PayloadRequest.where(client_id: client.id)
+      @urls = payloads.map {|payload| Url.where(id: payload.url_id)}.flatten
+      erb :show
+    end
+
   end
 end
