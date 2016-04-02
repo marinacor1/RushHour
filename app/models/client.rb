@@ -14,4 +14,7 @@ class Client < ActiveRecord::Base
     payload_requests.maximum(:responded_in).to_f.round(2)
   end
 
+  def min_response
+    payload_requests.minimum(:responded_in).to_f.round(2)
+  end
 end

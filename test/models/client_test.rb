@@ -17,6 +17,12 @@ class ClientTest < Minitest::Spec
     assert_equal 37.0, client.max_response
   end
 
+  def test_client_finds_min_response_time
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    create_payloads
+
+    assert_equal 7.0, client.min_response
+  end
 
 # Max Response time across all requests
 # Min Response time across all requests
