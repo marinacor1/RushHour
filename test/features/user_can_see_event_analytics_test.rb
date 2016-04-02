@@ -80,9 +80,11 @@ class UserCanSeeEventAnalytics < Minitest::Test
    end
 
    def test_user_gets_error_page_if_event_does_not_exist
-     visit "/sources/jumpstartlab/events/socialLogin"
-     assert page.has_content? "Event does not exist."
+    post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
 
+     visit "/sources/jumpstartlab/events/socialLogin"
+    #  save_and_open_page
+     assert page.has_content? "Event does not exist."
    end
 
 end

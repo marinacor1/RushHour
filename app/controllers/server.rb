@@ -41,13 +41,17 @@ module RushHour
       @event = event
       client_id = Client.find_by(identifier: id).id
       event_payloads = PayloadRequest.where(client_id: client_id, event_name: event )
-      hour_collection = event_payloads.map do |payload|
-        payload.param.split[1].split(":")[0]
-      end
-      @hour_count = hour_collection.group_by {|h| h}
-      @hour_count.map {|k,v| @hour_count[k] = v.count}
-      @hour_count.default = "0"
+      if event_payloads.empty?
+        erb: event_error
+      else
+        hour_collection = event_payloads.map do |payload|
+          payload.param.split[1].split(":")[0]
+        end
+        @hour_count = hour_collection.group_by {|h| h}
+        @hour_count.map {|k,v| @hour_count[k] = v.count}
+        @hour_count.default = "0"
         erb :show_event
+      end
     end
 
   end
