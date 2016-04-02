@@ -29,8 +29,22 @@ class UserCanSeeURLAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
     visit "/sources/jumpstartlab"
-save_and_open_page
-    assert page.has_content? "#{identifier}"
+
+    click_link('http://jumpstartlab.com/blog')
+    assert current_path "/sources/jumpstartlab/urls/blog"
+    assert page.has_content?("Max Response time: 37")
+    assert page.has_content?("Min Response time: 37")
+    assert page.has_content?("Average Response time: 37")
+    assert page.has_content? "HTTP Verb(s) associated used to it this URL: [\"GET\"]"
+  end
+
+  def test_user_gets_error_if_no_payloads
+    skip
+    post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+    assert_equal "jumpstartlab", Client.all.first.identifier
+
+    visit "/sources/jumpstartlab/urls/sdlfjs"
+    assert page.has_content?("This URL has not been requested.")
   end
 
 end

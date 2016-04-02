@@ -22,4 +22,13 @@ class Url < ActiveRecord::Base
       User.where(id: user_id).pluck(:os, :browser)
     end[0..2]
   end
+
+  def find_relative_path
+    # payload = PayloadRequest.where(url_id: self.id)
+    # root_url = Client.where(id: payload.first.client_id).first.root_url
+
+    url = self.address.split('/')[3..-1].join('/')
+    # binding.pry
+  end
+
 end
