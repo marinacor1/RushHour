@@ -53,12 +53,18 @@ class ClientTest < Minitest::Spec
   end
 
   def test_clients_know_os_breakdown
-    #TODO may need to be refactored. array within array.
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
     assert_equal ["Macintosh", "Macintosh", "Windows", "Macintosh"], client.os_breakdown
   end
-# OS breakdown across all requests
+
+  def test_clients_know_screen_resolutions
+    skip
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    create_payloads
+
+    assert_equal ["Macintosh", "Macintosh", "Windows", "Macintosh"], client.resolution_breakdown
+  end
 # Screen Resolutions across all requests (resolutionWidth x resolutionHeight)
 end

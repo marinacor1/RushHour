@@ -64,4 +64,14 @@ class Client < ActiveRecord::Base
     end.flatten
   end
 
+  def resolution_breakdown
+    popular = payload_requests.group(:resolution_id).count
+    sorted = popular.sort_by do |resolution_id, count|
+      count
+    end.reverse
+    sorted.map do |resolution_id, count|
+      Displayer.where(id: resolution_id).pluck(:os)
+    end.flatten
+  end
+
 end
