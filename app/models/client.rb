@@ -10,4 +10,8 @@ class Client < ActiveRecord::Base
     payload_requests.average(:responded_in).to_f.round(2)
   end
 
+  def max_response
+    payload_requests.maximum(:responded_in).to_f.round(2)
+  end
+
 end
