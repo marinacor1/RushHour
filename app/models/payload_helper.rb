@@ -4,14 +4,15 @@ class PayloadHelper
   attr_reader :returned
 
   def initialize(params)
-    if params.nil?
-      @params = {}
+    if params["payload"].nil?
+      @returned = [400, PayloadRequest.create().errors.full_messages.join(" ,")]
+    elsif Client.where(identifier: params["id"]) == []
+      @returned = [403, "Client does not exist"]
     else
       @params = params
+      @client = params["id"]
+      payload = create_payload_requests(parse(params))
     end
-    @client = params["id"]
-    payload = create_payload_requests(parse(params))
-    # return_status(payload)
   end
 
   def parse(params)
@@ -29,17 +30,14 @@ class PayloadHelper
       os: UserAgent.parse(params_hash["userAgent"]).platform).id,
       display_id: Display.find_or_create_by(width: params_hash["resolutionWidth"], height: params_hash["resolutionHeight"]).id,
       ip: params_hash["ip"],
+      # client: Client.find_by(:identifier == @client),
       client_id: Client.find_by(:identifier == @client).id,
       param: "#{@params}"
       })
     if payload.save
       @returned = [200, "happy"]
-    elsif !Client.find_by(:identifier == @client)
-      @returned = [400, payload.errors.full_messages.join(" ,")]
-    elsif @params.nil?
     elsif PayloadRequest.where(param: @params)
       @returned = [403, payload.errors.full_messages.join(" ,")]
     end
   end
-
 end
