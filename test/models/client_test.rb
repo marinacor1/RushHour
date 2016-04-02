@@ -31,8 +31,21 @@ class ClientTest < Minitest::Spec
     assert_equal ["GET", "GET", "GET", "GET", "GET", "GET", "GET", "GET", "POST"], client.http_verbs
   end
 
-# Most frequent request type
-# List of all HTTP verbs used
+  def test_client_knows_most_frequent_request_type
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    create_payloads
+
+    assert_equal ["GET"], client.most_popular_request_type
+  end
+
+  def test_clients_knows_sorted_urls
+    skip
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    create_payloads
+
+    assert_equal "GET", client.most_popular_urls
+  end
+
 # List of URLs listed form most requested to least requested
 # Web browser breakdown across all requests
 # OS breakdown across all requests

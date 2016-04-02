@@ -19,9 +19,29 @@ class Client < ActiveRecord::Base
   end
 
   def http_verbs
-      payload_requests.map do |payload|
+    payload_requests.map do |payload|
       RequestType.where(id: payload.request_type_id)[0].verb
     end
-
   end
+
+  def most_popular_request_type
+    popular = payload_requests.group(:request_type_id).count
+    sorted = popular.sort_by do |id, count|
+      count
+    end.reverse
+    answer = sorted.map do |id, count|
+      RequestType.where(id: id).pluck(:verb)
+    end.first
+  end
+
+  def most_popular_urls
+    popular = payload_requests.group(:user_id).count
+    sorted = popular.sort_by do |user_id, count|
+      count
+    end.reverse
+    sorted.map do |user_id, count|
+      User.where(id: user_id).pluck(:os, :browser)
+    end[0..2]
+  end
+
 end
