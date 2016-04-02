@@ -73,5 +73,4 @@ class Client < ActiveRecord::Base
       Displayer.where(id: resolution_id).pluck(:os)
     end.flatten
   end
-
 end
