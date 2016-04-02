@@ -75,7 +75,6 @@ class UserCanSeeURLAnalytics < Minitest::Test
     assert_equal 0, PayloadRequest.all.count
 
     visit '/sources/jumpstartlab'
- save_and_open_page
     assert page.has_content? "Client does not have any payloads."
   end
 end
