@@ -16,7 +16,11 @@ class UserTest < Minitest::Spec
 
     os = User.os_breakdown
 
-    assert_equal ["Macintosh", "Linux", "Windows", "Windows", "Macintosh", "Macintosh"], os
+    assert_equal 6, os.count
+    assert_equal Array, os.class
+    assert os.include? "Macintosh"
+    assert os.include? "Windows"
+    assert os.include? "Linux"
   end
 
   def test_user_will_return_one_browser_for_single_payload
