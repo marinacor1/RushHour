@@ -58,4 +58,8 @@ class Client < ActiveRecord::Base
     "/sources/#{self.identifier}/urls/#{path}"
   end
 
+  def find_events
+    payload_requests.select("event_name").map { |payload| payload.event_name }
+  end
+
 end

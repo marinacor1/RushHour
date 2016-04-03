@@ -3,4 +3,6 @@
   <p>Event does not exist.</p>
 </div>
 
+<p><a href="/sources/<%= @client.identifier %>/events">View events</a> for <%= @client.identifier %>.</p>
+
 <%= erb :_client_home, :locals => { :identifier => @identifier } %>

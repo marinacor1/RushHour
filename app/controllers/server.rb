@@ -30,6 +30,12 @@ module RushHour
       end
     end
 
+    get "/sources/:id/events" do |id|
+      client = find_client_from_url(id)
+      @events = client.find_events
+      erb :event_index
+    end
+
     get '/sources/:id/urls/:path' do |id, path|
       @client = find_client_from_url(id)
       if path_does_not_exist?(@client, path)
@@ -43,6 +49,7 @@ module RushHour
     get '/sources/:id/events/:event' do |id, event|
       payloads = event_payloads(id, event)
       if payloads.empty?
+        @client = find_client_from_url(id)
         @id = id
         erb :event_error
       else
