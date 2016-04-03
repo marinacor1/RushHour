@@ -31,6 +31,7 @@ module RushHour
       target_path = client.root_url + "/" + path
       @url = Url.where(address: target_path).first
       if @url.nil?
+        @identifier = id
         erb :url_error
       else
         erb :show_url
@@ -42,6 +43,7 @@ module RushHour
       client_id = Client.find_by(identifier: id).id
       event_payloads = PayloadRequest.where(client_id: client_id, event_name: event )
       if event_payloads.empty?
+        @identifier = id
         erb :event_error
       else
         @total = event_payloads.count
