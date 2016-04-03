@@ -44,6 +44,7 @@ module RushHour
       if event_payloads.empty?
         erb :event_error
       else
+        @total = event_payloads.count
         hour_collection = event_payloads.map do |payload|
           payload.param.split[1].split(":")[0]
         end

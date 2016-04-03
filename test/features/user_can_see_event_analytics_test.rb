@@ -28,7 +28,7 @@ class UserCanSeeEventAnalytics < Minitest::Test
 
      visit "/sources/jumpstartlab/events/socialLogin"
      assert page.has_content? "2100 hrs: 1"
-     assert page.has_content? "Total: 1"
+     assert page.has_content? "socialLogin occurs 1 times."
    end
 
   def test_user_can_see_event_analytics_for_two_payloads
@@ -50,7 +50,7 @@ class UserCanSeeEventAnalytics < Minitest::Test
      visit "/sources/jumpstartlab/events/socialLogin"
      assert page.has_content? "2100 hrs: 1"
      assert page.has_content? "1300 hrs: 1"
-     assert page.has_content? "Total: 2"
+     assert page.has_content? "socialLogin occurs 2 times."
 
    end
 
@@ -78,16 +78,16 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
+     save_and_open_page
      assert page.has_content? "2100 hrs: 1"
      assert page.has_content? "1300 hrs: 2"
-     assert page.has_content? "Total: 3"
+     assert page.has_content? "socialLogin occurs 3 times."
    end
 
    def test_user_gets_error_page_if_event_does_not_exist
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
 
      visit "/sources/jumpstartlab/events/socialLogin"
-     save_and_open_page
      assert page.has_content? "Event does not exist."
    end
 
