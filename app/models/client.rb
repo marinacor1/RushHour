@@ -59,7 +59,9 @@ class Client < ActiveRecord::Base
   end
 
   def find_events
-    payload_requests.select("event_name").map { |payload| payload.event_name }
+    payload_requests.select("event_name").map do |payload|
+      payload.event_name
+    end.uniq
   end
 
 end

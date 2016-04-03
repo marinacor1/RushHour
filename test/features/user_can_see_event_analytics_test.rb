@@ -125,7 +125,6 @@ class UserCanSeeEventAnalytics < Minitest::Test
 # - then clicks on a "see all events" link and then gets taken to `/sources/:id/events` and sees all the actual events for that client
 # - then user clicks on one of those events and we confirm that the user has gone to the path of that event
    def test_user_can_see_all_events
-     skip
      post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
      post '/sources/jumpstartlab/data',
      {"payload"=>

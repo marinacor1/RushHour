@@ -33,6 +33,7 @@ module RushHour
     get "/sources/:id/events" do |id|
       client = find_client_from_url(id)
       @events = client.find_events
+      @id = id
       erb :event_index
     end
 
