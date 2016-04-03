@@ -35,13 +35,24 @@ module RushHour
       else
         erb :show_url
       end
-      # payloads = PayloadRequest.where(client_id: client.id)
-      # generate
-      # @urls = payloads.map {|payload| Url.where(id: payload.url_id)}.flatten
-      # if client's root_url + path isn't one of the
-      # client's payload address
-        # then error
-      # else show_url
+    end
+
+    get '/sources/:id/events/:event' do |id, event|
+      @event = event
+      client_id = Client.find_by(identifier: id).id
+      event_payloads = PayloadRequest.where(client_id: client_id, event_name: event )
+      if event_payloads.empty?
+        erb :event_error
+      else
+        @total = event_payloads.count
+        hour_collection = event_payloads.map do |payload|
+          payload.param.split[1].split(":")[0]
+        end
+        @hour_count = hour_collection.group_by {|h| h}
+        @hour_count.map {|k,v| @hour_count[k] = v.count}
+        @hour_count.default = "0"
+        erb :show_event
+      end
     end
 
   end
