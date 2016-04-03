@@ -31,10 +31,7 @@ module RushHour
     end
 
     get '/sources/:id/urls/:path' do |id, path|
-      client = find_client_from_url(id)
-      target_path = client.root_url + "/" + path
-      url = Url.where(address: target_path).first
-      if url.nil?
+      if path_does_not_exist?
         @identifier = id
         erb :url_error
       else
