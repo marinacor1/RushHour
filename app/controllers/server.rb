@@ -31,7 +31,7 @@ module RushHour
     end
 
     get '/sources/:id/urls/:path' do |id, path|
-      client = Client.find_by(identifier: id)
+      client = find_client_from_url(id)
       target_path = client.root_url + "/" + path
       url = Url.where(address: target_path).first
       if url.nil?
@@ -44,8 +44,9 @@ module RushHour
 
     get '/sources/:id/events/:event' do |id, event|
       @event = event
-      client_id = Client.find_by(identifier: id).id
-      event_payloads = PayloadRequest.where(client_id: client_id, event_name: event )
+      client = find_client_from_url(id)
+      # client_id = Client.find_by(identifier: id).id
+      event_payloads = PayloadRequest.where(client_id: client.id, event_name: event )
       if event_payloads.empty?
         @identifier = id
         erb :event_error
