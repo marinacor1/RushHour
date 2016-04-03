@@ -245,4 +245,12 @@ class PayloadRequestTest < Minitest::Spec
                                 }).valid?
   end
 
+  def test_url_order_removes_duplicates
+    create_payloads
+
+    order = PayloadRequest.order_events
+
+    assert_equal order, order.uniq 
+  end
+
 end

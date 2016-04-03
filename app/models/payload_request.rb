@@ -32,8 +32,7 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.order_events
-    # TODO do we want this uniq? self.select(:event_name).uniq
-    self.order(event_name: :desc)
+    self.order(event_name: :desc).uniq
   end
 
   def self.order_requested_urls
