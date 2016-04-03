@@ -19,6 +19,7 @@ class UserCanSeeEventAnalytics < Minitest::Test
 
   def test_user_can_see_event_analytics
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+
     post '/sources/jumpstartlab/data',
     {"payload"=>
       "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
@@ -27,12 +28,14 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
+
      assert page.has_content? "2100 hrs: 1"
      assert page.has_content? "socialLogin occurs 1 times."
    end
 
   def test_user_can_see_event_analytics_for_two_payloads
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+
     post '/sources/jumpstartlab/data',
     {"payload"=>
       "{\"url\":\"http://jumpstartlab.com/blog\",\"requestedAt\":\"2013-02-16 21:38:28 -0700\",\"respondedIn\":37,\"referredBy\":\"http://jumpstartlab.com\",\"requestType\":\"GET\",\"parameters\":[],\"eventName\":\"socialLogin\",\"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",\"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",\"ip\":\"63.29.38.211\"}",
@@ -48,6 +51,7 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
+     
      assert page.has_content? "2100 hrs: 1"
      assert page.has_content? "1300 hrs: 1"
      assert page.has_content? "socialLogin occurs 2 times."

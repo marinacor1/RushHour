@@ -19,6 +19,7 @@ class UserCanSeeURLAnalytics < Minitest::Test
 
   def test_user_can_see_client_analytics
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+    
     assert_equal "jumpstartlab", Client.all.first.identifier
 
     post '/sources/jumpstartlab/data',
@@ -37,6 +38,7 @@ class UserCanSeeURLAnalytics < Minitest::Test
 
   def test_user_can_see_data_for_multiple_payloads
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+
     assert_equal "jumpstartlab", Client.all.first.identifier
 
     post '/sources/jumpstartlab/data',
@@ -52,8 +54,9 @@ class UserCanSeeURLAnalytics < Minitest::Test
      "splat"=>[],
      "captures"=>["jumpstartlab"],
      "id"=>"jumpstartlab"}
-    #  client = Client.all.last
+
      visit "/sources/jumpstartlab"
+
      assert page.has_content? "jumpstartlab"
      assert page.has_content? "GET"
      assert page.has_content? 37
@@ -65,16 +68,18 @@ class UserCanSeeURLAnalytics < Minitest::Test
     assert_equal 0, Client.all.count
 
     visit '/sources/jumpstartlab'
-#TODO add id later
+
     assert page.has_content? "Client does not exist."
   end
 
   def test_user_will_get_error_if_payload_does_not_exist
     post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
+
     assert_equal "jumpstartlab", Client.all.first.identifier
     assert_equal 0, PayloadRequest.all.count
 
     visit '/sources/jumpstartlab'
+
     assert page.has_content? "Client does not have any payloads."
   end
 end
