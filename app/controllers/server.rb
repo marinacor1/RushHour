@@ -20,10 +20,10 @@ module RushHour
     end
 
     get '/sources/:id' do |id|
-      client = find_client_from_url(id)
-      if client.nil?
+      @client = find_client_from_url(id)
+      if @client.nil?
         erb :client_error
-      elsif no_payloads_sent_by?(client)
+      elsif no_payloads_sent_by?(@client)
         erb :payload_error
       else
         erb :show_client
@@ -31,9 +31,9 @@ module RushHour
     end
 
     get '/sources/:id/urls/:path' do |id, path|
-      if path_does_not_exist?
-        binding.pry
-        @identifier = id
+      @client = find_client_from_url(id)
+      if path_does_not_exist?(@client, path)
+        @id = id
         erb :url_error
       else
         erb :show_url
@@ -43,7 +43,7 @@ module RushHour
     get '/sources/:id/events/:event' do |id, event|
       payloads = event_payloads(id, event)
       if payloads.empty?
-        @identifier = id
+        @id = id
         erb :event_error
       else
         @total = payloads.count
