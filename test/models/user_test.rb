@@ -8,7 +8,12 @@ class UserTest < Minitest::Spec
 
     browser = User.browser_breakdown
 
-    assert_equal ["Safari", "Safari", "Safari", "Intel", "Chrome", "Aetscape"], browser
+    assert_equal 6, browser.count
+    assert_equal Array, browser.class
+    assert browser.include? "Safari"
+    assert browser.include? "Intel"
+    assert browser.include? "Chrome"
+    assert browser.include? "Aetscape"
   end
 
   def test_user_returns_breakdown_of_os
