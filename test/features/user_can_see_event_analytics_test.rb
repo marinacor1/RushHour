@@ -78,7 +78,6 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
-     save_and_open_page
      assert page.has_content? "2100 hrs: 1"
      assert page.has_content? "1300 hrs: 2"
      assert page.has_content? "socialLogin occurs 3 times."
