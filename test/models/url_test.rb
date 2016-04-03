@@ -73,21 +73,28 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_three_most_popular_referrers
-    skip
     create_payloads
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
     sorted_referrers = url.popular_referrers
 
-    assert_equal "http://google.com", sorted_referrers[1]
-    assert_equal "http://jumpstartlab.com", sorted_referrers.first
+    assert_equal ["http://jumpstartlab.com", "http://google.com", "http://bing.com"], sorted_referrers
+    assert_equal 3, sorted_referrers.count
+  end
+
+  def test_can_find_three_most_popular_referrers_with_different_group
+    different_referrer_payload
+
+    url = Url.find_by(address: "http://turing.io/")
+
+    sorted_referrers = url.popular_referrers
+
+    assert_equal ["http://chacha.com", "http://myspace.com", "http://walmart.com"], sorted_referrers
     assert_equal 3, sorted_referrers.count
   end
 
   def test_returns_one_referrer_if_only_one_option_in_payloads
-    single_turing_payload
-    single_turing_payload
     single_turing_payload
 
     url = Url.find_by(address: "http://turing.io/")
@@ -119,8 +126,6 @@ class UrlTest < Minitest::Spec
   end
 
   def test_returns_single_user_agent_if_only_one_popular_option
-   single_turing_payload
-   single_turing_payload
    single_turing_payload
 
     url = Url.find_by(address: "http://turing.io/")

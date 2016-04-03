@@ -10,7 +10,11 @@ class Url < ActiveRecord::Base
   def popular_referrers
     popular = payload_requests.group(:referrer_id).count
     grouped_referrers = referrers.group(:referred_by).count
-    grouped_referrers.keys[0..2]
+    sorted = grouped_referrers.sort_by do |referrer, count|
+      count
+    end.reverse
+    top_three = sorted[0..2]
+    names = top_three.map {|pair| pair.first}
   end
 
   def popular_user_agents
