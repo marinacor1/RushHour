@@ -3,14 +3,6 @@ require_relative "../test_helper"
 class UrlTest < Minitest::Spec
   include TestHelpers
 
-  def test_duplicate_urls_are_eliminated
-    single_payload
-    single_payload
-
-    all_sites = Url.all
-    assert_equal 1, all_sites.count
-  end
-
   def test_returns_max_response_time_by_url
     create_payloads
 
@@ -24,6 +16,14 @@ class UrlTest < Minitest::Spec
 
     url = Url.find_by(address: "http://turing.io/")
     assert_equal 10, url.min_response_time
+  end
+
+  def test_can_find_avg_for_all_response_times_by_url
+    create_payloads
+
+    url = Url.find_by(address: "http://turing.io/")
+
+    assert_equal 80.0, url.average_response_time
   end
 
   def test_can_list_ordered_response_times_by_url
@@ -42,13 +42,6 @@ class UrlTest < Minitest::Spec
     assert_equal [37, 37, 37, 37, 37, 37, 37, 37, 7], url.sorted_response_times
   end
 
-  def test_can_find_avg_for_all_response_times_by_url
-    create_payloads
-
-    url = Url.find_by(address: "http://turing.io/")
-
-    assert_equal 80.0, url.average_response_time
-  end
 
   def test_can_find_avg_for_all_responses_with_diff_url
     create_payloads
@@ -126,7 +119,7 @@ class UrlTest < Minitest::Spec
   end
 
   def test_returns_single_user_agent_if_only_one_popular_option
-   single_turing_payload
+    single_turing_payload
 
     url = Url.find_by(address: "http://turing.io/")
 
@@ -146,5 +139,4 @@ class UrlTest < Minitest::Spec
     assert_equal [[["Macintosh", "Chrome"]]], user_agents
     assert_equal 1, user_agents.count
   end
-
 end

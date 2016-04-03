@@ -9,7 +9,7 @@ module Analytics
 
   def sorted_response_times
     payloads = payload_requests.order(responded_in: :desc)
-    x = payloads.map { |payload| payload.responded_in }
+    payloads.map { |payload| payload.responded_in }
   end
 
   def average_response_time
@@ -21,5 +21,4 @@ module Analytics
       RequestType.where(id: payload.request_type_id)[0].verb
     end
   end
-
 end
