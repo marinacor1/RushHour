@@ -83,6 +83,17 @@ class UrlTest < Minitest::Spec
     assert_equal 3, sorted_referrers.count
   end
 
+  def test_can_find_three_most_popular_referrers_with_different_group
+    different_referrer_payload
+
+    url = Url.find_by(address: "http://turing.io/")
+
+    sorted_referrers = url.popular_referrers
+
+    assert_equal ["http://chacha.com", "http://myspace.com", "http://walmart.com"], sorted_referrers
+    assert_equal 3, sorted_referrers.count
+  end
+
   def test_returns_one_referrer_if_only_one_option_in_payloads
     single_turing_payload
 
