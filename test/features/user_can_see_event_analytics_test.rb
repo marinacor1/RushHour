@@ -149,13 +149,14 @@ class UserCanSeeEventAnalytics < Minitest::Test
 
       visit "/sources/jumpstartlab"
 
-      click_link "View Events"
+      click_link "View events"
 
       assert_equal "/sources/jumpstartlab/events", current_path
       assert page.has_content? "Event Index"
       assert page.has_content? "event1"
       assert page.has_content? "event2"
       assert page.has_content? "event3"
+      save_and_open_page
    end
 
 # 2. user_can_see_event_analytics_test.rb - we need a path where
