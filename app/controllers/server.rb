@@ -23,7 +23,7 @@ module RushHour
       client = find_client_from_url(id)
       if client.nil?
         erb :client_error
-      elsif PayloadRequest.find_by(client_id: client.id).nil?
+      elsif no_payloads_sent_by?(client)
         erb :payload_error
       else
         erb :show_client
@@ -45,7 +45,6 @@ module RushHour
     get '/sources/:id/events/:event' do |id, event|
       @event = event
       client = find_client_from_url(id)
-      # client_id = Client.find_by(identifier: id).id
       event_payloads = PayloadRequest.where(client_id: client.id, event_name: event )
       if event_payloads.empty?
         @identifier = id
