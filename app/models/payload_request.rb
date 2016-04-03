@@ -32,7 +32,10 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.order_events
-    self.order(event_name: :desc).uniq
+    events = self.order(event_name: :desc)
+    events.map do |event|
+      event.event_name
+    end.uniq
   end
 
   def self.order_requested_urls

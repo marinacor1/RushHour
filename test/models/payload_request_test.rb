@@ -68,7 +68,7 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal 7, PayloadRequest.minimum_response_time
   end
 
-  def test_will_return_single_min_and_max_response_time_if_single_payload
+  def test_will_return_single_min_avg_and_max_response_time_if_single_payload
     single_payload
 
     assert_equal 7, PayloadRequest.maximum_response_time
@@ -84,19 +84,17 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal 7, PayloadRequest.maximum_response_time
     assert_equal 7, PayloadRequest.minimum_response_time
     assert_equal 7, PayloadRequest.average_response_time
-
-
   end
 
   def test_it_lists_events_in_order_of_frequency
     create_payloads
 
     events = PayloadRequest.order_events
-    assert_equal "socialLogin", events.first.event_name
-    assert_equal "lastentry", events.last.event_name
-    array = "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "socialLogin", "passwordEntry", "passwordEntry", "passwordEntry", "passwordEntry", "passwordEntry", "lastentry"
-    assert_equal array, events.map {|event| event.event_name}
-    assert_equal 15, events.count
+    assert_equal "socialLogin", events.first
+    assert_equal "lastentry", events.last
+    array = ["socialLogin", "passwordEntry", "lastentry"]
+    assert_equal array, events
+    assert_equal 3, events.count
   end
 
   def test_it_orders_events_in_order_of_frequency_if_only_one
@@ -105,7 +103,7 @@ class PayloadRequestTest < Minitest::Spec
     events = PayloadRequest.order_events
 
     assert_equal 1, events.count
-    assert_equal ["socialLogin"], events.map {|event| event.event_name}
+    assert_equal ["socialLogin"], events
   end
 
   def test_payload_is_valid 
@@ -245,12 +243,11 @@ class PayloadRequestTest < Minitest::Spec
                                 }).valid?
   end
 
-  def test_url_order_removes_duplicates
+  def test_event_order_removes_duplicates
     create_payloads
 
     order = PayloadRequest.order_events
 
-    assert_equal order, order.uniq 
+    assert_equal order, order.uniq
   end
-
 end
