@@ -20,4 +20,11 @@ class CreateClientTest < Minitest::Test
 
     assert_equal 404, last_response.status
   end
+
+  def test_can_redirect_to_error_page_with_different_not_found_url
+    get '/slfkjds'
+
+    assert_equal 404, last_response.status
+  end
+
 end
