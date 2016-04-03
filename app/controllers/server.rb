@@ -1,5 +1,9 @@
+require_relative "../models/server_methods"
+
 module RushHour
   class Server < Sinatra::Base
+
+    include ServerMethods
 
     not_found do
       erb :error
@@ -16,10 +20,10 @@ module RushHour
     end
 
     get '/sources/:id' do |id|
-      @client = Client.find_by(identifier: id)
-      if @client.nil?
+      client = find_client_from_url(id)
+      if client.nil?
         erb :client_error
-      elsif PayloadRequest.find_by(client_id: @client.id).nil?
+      elsif PayloadRequest.find_by(client_id: client.id).nil?
         erb :payload_error
       else
         erb :show_client
@@ -29,8 +33,8 @@ module RushHour
     get '/sources/:id/urls/:path' do |id, path|
       client = Client.find_by(identifier: id)
       target_path = client.root_url + "/" + path
-      @url = Url.where(address: target_path).first
-      if @url.nil?
+      url = Url.where(address: target_path).first
+      if url.nil?
         @identifier = id
         erb :url_error
       else
