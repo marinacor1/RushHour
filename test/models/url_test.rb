@@ -73,15 +73,13 @@ class UrlTest < Minitest::Spec
   end
 
   def test_can_find_three_most_popular_referrers
-    skip
     create_payloads
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
     sorted_referrers = url.popular_referrers
 
-    assert_equal "http://google.com", sorted_referrers[1]
-    assert_equal "http://jumpstartlab.com", sorted_referrers.first
+    assert_equal ["http://jumpstartlab.com", "http://google.com", "http://bing.com"], sorted_referrers
     assert_equal 3, sorted_referrers.count
   end
 
