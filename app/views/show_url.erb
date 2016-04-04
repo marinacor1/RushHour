@@ -1,3 +1,5 @@
+<%= erb :_client_home, :locals => { :identifier => @identifier } %>
+<div class='well'>
 <h1>Stats for <%= @url.address %></h1>
 <p>Max Response Time: <%= @url.max_response_time %></p>
 <p>Minimum Response Time: <%= @url.min_response_time %></p>
@@ -6,3 +8,4 @@
 <p>HTTP Verbs Used: <%= @url.all_verbs %></p>
 <p>Three Most Popular Referrers: <%= @url.popular_referrers %></p>
 <p>Three Most Popular User Agents: <%= @url.popular_user_agents %></p>
+</div>
