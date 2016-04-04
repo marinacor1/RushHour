@@ -61,13 +61,16 @@ class Client < ActiveRecord::Base
   end
 
   def resolution_breakdown
-    groups = group_payloads_by(:display_id)
-    displays = groups.map do |display_id, count|
-      Display.where(id: display_id)
-    end.flatten
-    displays.map do |display|
-      "#{display.width} x #{display.height}"
-    end
+    # groups = group_payloads_by(:display_id)
+    # displays = groups.map do |display_id, count|
+    #   Display.where(id: display_id)
+    # end.flatten
+    displays = PayloadRequest.where(client_id: self.id).joins(:display).group(:display).order("count_all desc").count
+    displays.keys.map {|display| "#{display.width} x #{display.height}"}
+    # binding.pry
+    # displays.map do |display|
+    #   "#{display.width} x #{display.height}"
+    # end
   end
 
   def find_relative_path(url)
