@@ -251,8 +251,4 @@ class PayloadRequestTest < Minitest::Spec
     assert_equal order, order.uniq
   end
 
-  def test_show_status
-    status = Payloadrequest.show_status
-    assert_equal "", nil_status
-  end
 end
