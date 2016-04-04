@@ -61,5 +61,4 @@ class Client < ActiveRecord::Base
       payload.event_name
     end.uniq
   end
-
 end
