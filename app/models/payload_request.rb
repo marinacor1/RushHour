@@ -59,5 +59,4 @@ class PayloadRequest < ActiveRecord::Base
       body "This is a duplicate"
     end
   end
-
 end

@@ -12,5 +12,4 @@ class ClientHelper
       @returned = [400, client.errors.full_messages.join(", ")]
     end
   end
-
 end

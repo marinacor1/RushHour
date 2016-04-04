@@ -10,9 +10,7 @@ class Client < ActiveRecord::Base
 
   def group_payloads_by(id)
     groups = payload_requests.group(id).count
-    groups.sort_by do |id, count|
-      count
-    end.reverse
+    groups.sort_by { |id, count| count}.reverse
   end
 
   def popular_request_type
@@ -57,5 +55,4 @@ class Client < ActiveRecord::Base
     path = url.split('/')[3..-1].join('/')
     "/sources/#{self.identifier}/urls/#{path}"
   end
-
 end
