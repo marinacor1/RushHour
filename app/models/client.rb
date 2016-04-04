@@ -7,13 +7,11 @@ class Client < ActiveRecord::Base
   validates :identifier, uniqueness: true
   validates :root_url, presence: true
   validates :root_url, uniqueness: true
-
-  def group_payloads_by(id)
-    groups = payload_requests.group(id).count
-    #{6=>1, 4=>2, 1=>4, 5=>2}
-    groups.sort_by { |id, count| count}.reverse
-    # [2, 2], [1, 1]]
-  end
+  #
+  # def group_payloads_by(id)
+  #   groups = payload_requests.group(id).count
+  #   groups.sort_by { |id, count| count}.reverse
+  # end
 
   def popular_request_type
     # groups = group_payloads_by(:request_type_id)
@@ -79,8 +77,10 @@ class Client < ActiveRecord::Base
   end
 
   def find_events
-    payload_requests.select("event_name").map do |payload|
-      payload.event_name
-    end.uniq
+    # payload_requests.select("event_name").map do |payload|
+    #   payload.event_name
+    # end.uniq
+    payloads = PayloadRequest.where(client_id: self.id).pluck(:event_name)
+    # displays.keys.map {|display| "#{display.width} x #{display.height}"}
   end
 end
