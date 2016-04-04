@@ -90,17 +90,6 @@ class UserCanSeeEventAnalytics < Minitest::Test
      assert page.has_content? "Event does not exist."
    end
 
-   def test_user_can_link_to_home_from_error
-     skip
-    post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
-
-    visit "/sources/jumpstartlab/events/socialLogin"
-
-    click_button("stats for jumpstartlab")
-
-    assert_equal "/sources/jumpstartlab", current_path
-   end
-
    def test_user_can_browse_to_all_events_from_event_error_page
      post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
 
