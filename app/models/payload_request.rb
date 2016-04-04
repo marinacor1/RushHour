@@ -1,6 +1,7 @@
 require 'pry'
 
 class PayloadRequest < ActiveRecord::Base
+  attr_reader :nil_status
   belongs_to :url
   belongs_to :referrer
   belongs_to :request_type
@@ -32,8 +33,8 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.order_events
-    # TODO do we want this uniq? self.select(:event_name).uniq
-    self.order(event_name: :desc)
+    events = self.order(event_name: :desc)
+    events.map { |event| event.event_name}.uniq
   end
 
   def self.order_requested_urls
@@ -47,18 +48,15 @@ class PayloadRequest < ActiveRecord::Base
 
   def show_status
     if self.nil?
-      [400, self.errors.full_messages.join(", ")]
+      @nil_status = [400, self.errors.full_messages.join(", ")]
     elsif self == :unknown_client
       status 403
       body "not a known client root url"
-      # body errors.full_messages.join(", ")
     elsif self.save
       status = 200
     else
       status 403
       body "This is a duplicate"
-      # body errors.full_messages.join(", ")
     end
   end
-
 end

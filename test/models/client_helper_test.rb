@@ -48,5 +48,4 @@ class ClientHelperTest < Minitest::Spec
     assert_equal "Root url can't be blank", client_helper_url.returned[1]
     assert_equal 0, Client.all.count
   end
-
 end

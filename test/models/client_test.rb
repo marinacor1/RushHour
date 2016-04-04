@@ -3,13 +3,6 @@ require_relative "../test_helper"
 class ClientTest < Minitest::Spec
   include TestHelpers
 
-  def test_client_finds_average_response_time
-    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
-    create_payloads
-
-    assert_equal 33.67, client.average_response_time
-  end
-
   def test_client_finds_max_response_time
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
@@ -22,6 +15,13 @@ class ClientTest < Minitest::Spec
     create_payloads
 
     assert_equal 7.0, client.min_response_time
+  end
+
+  def test_client_finds_average_response_time
+    client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+    create_payloads
+
+    assert_equal 33.67, client.average_response_time
   end
 
   def test_client_knows_all_http_verbs
@@ -141,5 +141,13 @@ class ClientTest < Minitest::Spec
 
     assert_equal "/sources/jumpstartlab/urls/blog/1", client.find_relative_path(url)
   end
+
+  def test_client_can_parse_url_for_view
+    client = Client.create(identifier: 'google', root_url: 'http://google.com')
+    url = "http://google.com/search/1"
+
+    assert_equal "/sources/google/urls/search/1", client.find_relative_path(url)
+  end
+
 
 end
