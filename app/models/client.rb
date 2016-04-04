@@ -16,7 +16,7 @@ class Client < ActiveRecord::Base
   end
 
   def popular_request_type
-    groups = group_payloads_by(:request_type_id)
+    # groups = group_payloads_by(:request_type_id)
     # [[1, 8], [2, 1]]
     # groups.map do |id, count|
     #   RequestType.where(id: id).pluck(:verb)
@@ -29,18 +29,25 @@ class Client < ActiveRecord::Base
   end
 
   def most_popular_urls
-
-    groups = group_payloads_by(:url_id)
-    groups.map do |url_id, count|
-      Url.where(id: url_id).pluck(:address)
-    end.flatten
+    # binding.pry
+    urls = PayloadRequest.limit(3).where(client_id: self.id).joins(:url).group(:url).order("count_all desc").count
+    urls.keys.map {|url| url.address}
+    # PayloadRequest.joins(:url_id).group(Url.address).order("count_all desc").count
+    # PayloadRequest.joins(:url).group(:url).order("count_all desc").count.first.first[:address]
+    # groups = group_payloads_by(:url_id)
+    # groups.map do |url_id, count|
+    #   Url.where(id: url_id).pluck(:address)
+    # end.flatten
   end
 
   def browser_breakdown
-    groups = group_payloads_by(:user_id)
-    groups.map do |user_id, count|
-      User.where(id: user_id).pluck(:browser)
-    end.flatten
+    users = PayloadRequest.where(client_id: self.id).joins(:user).group(:user).order("count_all desc").count
+    users.keys.map {|user| user.browser}
+
+    # groups = group_payloads_by(:user_id)
+    # groups.map do |user_id, count|
+    #   User.where(id: user_id).pluck(:browser)
+    # end.flatten
   end
 
   def os_breakdown
