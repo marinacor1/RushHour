@@ -1,0 +1,8 @@
+<div>
+  <h1>Event Index</h1>
+
+  <% @events.map do |event| %>
+    <a href="/sources/<%= @id %>/events/<%= event %>"><%= event %></a>
+  <% end %>
+
+</div>
