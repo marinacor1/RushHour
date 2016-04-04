@@ -143,7 +143,7 @@ class UrlTest < Minitest::Spec
 
     user_agents = url.popular_user_agents
 
-    assert_equal [[["Macintosh", "Safari"]], [["Macintosh", "Chrome"]], [["Windows", "Intel"]]], user_agents
+    assert_equal ["Macintosh & Safari", "Macintosh & Chrome", "Windows & Intel"], user_agents
   end
 
   def test_returns_single_user_agent_if_only_one_popular_option
@@ -153,7 +153,7 @@ class UrlTest < Minitest::Spec
 
     user_agents = url.popular_user_agents
 
-    assert_equal [[["Macintosh", "Chrome"]]], user_agents
+    assert_equal ["Macintosh & Chrome"], user_agents
     assert_equal 1, user_agents.count
   end
 
@@ -164,7 +164,7 @@ class UrlTest < Minitest::Spec
 
     user_agents = url.popular_user_agents
 
-    assert_equal [[["Macintosh", "Chrome"]]], user_agents
+    assert_equal ["Macintosh & Chrome"], user_agents
     assert_equal 1, user_agents.count
   end
 end

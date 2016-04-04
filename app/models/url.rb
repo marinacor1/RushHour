@@ -20,12 +20,14 @@ class Url < ActiveRecord::Base
   end
 
   def popular_user_agents
-    popular = payload_requests.group(:user_id).count
-    sorted = popular.sort_by do |user_id, count|
-      count
-    end.reverse
-    sorted.map do |user_id, count|
-      User.where(id: user_id).pluck(:os, :browser)
-    end[0..2]
+    # popular = payload_requests.group(:user_id).count
+    # sorted = popular.sort_by do |user_id, count|
+    #   count
+    # end.reverse
+    # sorted.map do |user_id, count|
+    #   User.where(id: user_id).pluck(:os, :browser)
+    # end[0..2]
+    users = PayloadRequest.limit(3).where(url_id: self.id).joins(:user).group(:user).order("count_all desc").count
+    users.keys.map {|user| "#{user.os} & #{user.browser}"}
   end
 end
