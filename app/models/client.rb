@@ -51,10 +51,13 @@ class Client < ActiveRecord::Base
   end
 
   def os_breakdown
-    groups = group_payloads_by(:user_id)
-    groups.map do |user_id, count|
-      User.where(id: user_id).pluck(:os)
-    end.flatten
+    # groups = group_payloads_by(:user_id)
+    # groups.map do |user_id, count|
+    #   User.where(id: user_id).pluck(:os)
+    # end.flatten
+    users = PayloadRequest.where(client_id: self.id).joins(:user).group(:user).order("count_all desc").count
+    users.keys.map {|user| user.os}
+
   end
 
   def resolution_breakdown
