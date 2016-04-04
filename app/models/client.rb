@@ -55,4 +55,11 @@ class Client < ActiveRecord::Base
     path = url.split('/')[3..-1].join('/')
     "/sources/#{self.identifier}/urls/#{path}"
   end
+
+  def find_events
+    payload_requests.select("event_name").map do |payload|
+      payload.event_name
+    end.uniq
+  end
+
 end
