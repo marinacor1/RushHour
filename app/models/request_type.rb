@@ -1,10 +1,13 @@
 class RequestType < ActiveRecord::Base
 
   def self.list_verbs
-    verb_count = self.select(:verb).group(:verb).having("count(*) > 0").count
-    verb_count.sort_by do |verb, count|
-      count
-    end.reverse.map { |verb, count| verb }
+    # verb_count = self.select(:verb).group(:verb).having("count(*) > 0").count
+    # var = verb_count.sort_by do |verb, count|
+    #   count
+    # end.reverse.map { |verb, count| verb }
+    # binding.pry
+    request_types = PayloadRequest.joins(:request_type).group(:request_type).order("count_all desc").count
+    request_types.keys.map {|request_type| request_type.verb}
   end
 
   def self.most_requested
