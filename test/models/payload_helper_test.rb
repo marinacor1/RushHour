@@ -52,6 +52,14 @@ class PayloadHelperTest < Minitest::Spec
   end
 
   def test_can_return_400_when_no_payload_data
-    #TODO think about whether we need this or not. might be redundant
+     params = {"payload" => nil}
+     id = "jumpstartlab"
+     Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
+     helper = PayloadHelper.new(params)
+
+    assert_equal 400, helper.returned[0]
+    assert_equal "Url can't be blank ,Requested at can't be blank ,Responded in can't be blank ,Referrer can't be blank ,Request type can't be blank ,Event name can't be blank ,User can't be blank ,Display can't be blank ,Ip can't be blank ,Param can't be blank", helper.returned[1]
+
+
   end
 end
