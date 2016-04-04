@@ -1,3 +1,6 @@
+<%= erb :_client_home, :locals => { :identifier => @identifier } %>
+<div class='well'>
 <h1><%= @event %> occurs <%= @total %> times.</h1>
-<h1>Number of times <%= @event %> occurs per hour (military time):</h1>
+</div>
+<h1>Hourly breakdown:</h1>
 <%= erb :_hours %>

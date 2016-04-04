@@ -1,8 +1,6 @@
-<div>
+<%= erb :_client_home, :locals => { :identifier => @identifier } %>
+<div class='well'>
   <h1>Event Error Page</h1>
   <p>Event does not exist.</p>
+  <p><a href="/sources/<%= @client.identifier %>/events">View events</a> for <%= @client.identifier %>.</p>
 </div>
-
-<p><a href="/sources/<%= @client.identifier %>/events">View events</a> for <%= @client.identifier %>.</p>
-
-<%= erb :_client_home, :locals => { :identifier => @identifier } %>
