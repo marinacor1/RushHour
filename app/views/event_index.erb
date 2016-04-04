@@ -1,4 +1,5 @@
-<div>
+<%= erb :_client_home, :locals => { :identifier => @identifier } %>
+<div class='well'>
   <h1>Event Index</h1>
 
   <% @events.map do |event| %>
