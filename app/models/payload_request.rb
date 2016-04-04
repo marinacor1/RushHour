@@ -45,18 +45,4 @@ class PayloadRequest < ActiveRecord::Base
       Url.where(id: id_pair[0]).first.address
     end
   end
-
-  def show_status
-    if self.nil?
-      @nil_status = [400, self.errors.full_messages.join(", ")]
-    elsif self == :unknown_client
-      status 403
-      body "not a known client root url"
-    elsif self.save
-      status = 200
-    else
-      status 403
-      body "This is a duplicate"
-    end
-  end
 end
