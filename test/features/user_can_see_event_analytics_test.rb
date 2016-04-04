@@ -27,7 +27,7 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
-     assert page.has_content? "2100 hrs: 1"
+     assert page.has_content? "21:00 hrs: 1"
      assert page.has_content? "socialLogin occurs 1 times."
    end
 
@@ -48,8 +48,8 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
-     assert page.has_content? "2100 hrs: 1"
-     assert page.has_content? "1300 hrs: 1"
+     assert page.has_content? "21:00 hrs: 1"
+     assert page.has_content? "13:00 hrs: 1"
      assert page.has_content? "socialLogin occurs 2 times."
 
    end
@@ -78,8 +78,8 @@ class UserCanSeeEventAnalytics < Minitest::Test
      "id"=>"jumpstartlab"}
 
      visit "/sources/jumpstartlab/events/socialLogin"
-     assert page.has_content? "2100 hrs: 1"
-     assert page.has_content? "1300 hrs: 2"
+     assert page.has_content? "21:00 hrs: 1"
+     assert page.has_content? "13:00 hrs: 2"
      assert page.has_content? "socialLogin occurs 3 times."
    end
 
@@ -88,16 +88,6 @@ class UserCanSeeEventAnalytics < Minitest::Test
 
      visit "/sources/jumpstartlab/events/socialLogin"
      assert page.has_content? "Event does not exist."
-   end
-
-   def test_user_can_link_to_home_from_error
-    post '/sources', {identifier: 'jumpstartlab', rootUrl: 'http://jumpstartlab.com' }
-
-    visit "/sources/jumpstartlab/events/socialLogin"
-
-    click_link("here")
-
-    assert_equal "/sources/jumpstartlab", current_path
    end
 
    def test_user_can_browse_to_all_events_from_event_error_page
