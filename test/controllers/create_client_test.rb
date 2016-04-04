@@ -1,4 +1,4 @@
- require './test/test_helper'
+require './test/test_helper'
 
 class CreateClientTest < Minitest::Test
   include Rack::Test::Methods

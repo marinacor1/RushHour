@@ -5,5 +5,4 @@ class Display < ActiveRecord::Base
       "#{display.width} x #{display.height}"
     end
   end
-
 end

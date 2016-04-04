@@ -19,5 +19,4 @@ class RequestType < ActiveRecord::Base
       array[1].verb
     end.first
   end
-
 end

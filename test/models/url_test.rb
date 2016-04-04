@@ -3,14 +3,6 @@ require_relative "../test_helper"
 class UrlTest < Minitest::Spec
   include TestHelpers
 
-  def test_duplicate_urls_are_eliminated
-    single_payload
-    single_payload
-
-    all_sites = Url.all
-    assert_equal 1, all_sites.count
-  end
-
   def test_returns_max_response_time_by_url
     create_payloads
 
@@ -24,6 +16,14 @@ class UrlTest < Minitest::Spec
 
     url = Url.find_by(address: "http://turing.io/")
     assert_equal 10, url.min_response_time
+  end
+
+  def test_can_find_avg_for_all_response_times_by_url
+    create_payloads
+
+    url = Url.find_by(address: "http://turing.io/")
+
+    assert_equal 80.0, url.average_response_time
   end
 
   def test_can_list_ordered_response_times_by_url
@@ -42,13 +42,6 @@ class UrlTest < Minitest::Spec
     assert_equal [37, 37, 37, 37, 37, 37, 37, 37, 7], url.sorted_response_times
   end
 
-  def test_can_find_avg_for_all_response_times_by_url
-    create_payloads
-
-    url = Url.find_by(address: "http://turing.io/")
-
-    assert_equal 80.0, url.average_response_time
-  end
 
   def test_can_find_avg_for_all_responses_with_diff_url
     create_payloads
@@ -74,6 +67,34 @@ class UrlTest < Minitest::Spec
 
   def test_can_find_three_most_popular_referrers
     create_payloads
+    PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referrer_id: Referrer.find_or_create_by(referred_by:"http://bing.com").id,
+                            request_type_id: RequestType.find_or_create_by(verb: "GET").id,
+                            event_name: "socialLogin",
+                            user_id: User.find_or_create_by(browser: UserAgent.parse("Safari/537.17").browser,
+                                                 os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
+                                                 ).id,
+                            display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            ip: "63.29.38.211",
+                            client_id: 1,
+                            param: "145"
+                          })
+    PayloadRequest.create({ url_id: Url.find_or_create_by(address: "http://jumpstartlab.com/").id,
+                            requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 37,
+                            referrer_id: Referrer.find_or_create_by(referred_by:"http://google.com").id,
+                            request_type_id: RequestType.find_or_create_by(verb: "GET").id,
+                            event_name: "socialLogin",
+                            user_id: User.find_or_create_by(browser: UserAgent.parse("Safari/537.17").browser,
+                                                 os: UserAgent.parse("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17").platform
+                                                 ).id,
+                            display_id: Display.find_or_create_by(width: "1920", height: "1280").id,
+                            ip: "63.29.38.211",
+                            client_id: 1,
+                            param: "144"
+                          })
 
     url = Url.find_by(address: "http://jumpstartlab.com/")
 
@@ -126,7 +147,7 @@ class UrlTest < Minitest::Spec
   end
 
   def test_returns_single_user_agent_if_only_one_popular_option
-   single_turing_payload
+    single_turing_payload
 
     url = Url.find_by(address: "http://turing.io/")
 
@@ -146,5 +167,4 @@ class UrlTest < Minitest::Spec
     assert_equal [[["Macintosh", "Chrome"]]], user_agents
     assert_equal 1, user_agents.count
   end
-
 end
