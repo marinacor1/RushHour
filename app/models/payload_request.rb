@@ -38,11 +38,14 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.order_requested_urls
-    sorted_ids = PayloadRequest.all.group(:url_id).count.sort_by do |attribute, count|
-      count
-    end.reverse
-    sorted_ids.map do |id_pair|
-      Url.where(id: id_pair[0]).first.address
-    end
+    # sorted_ids = PayloadRequest.all.group(:url_id).count.sort_by do |attribute, count|
+    #   count
+    # end.reverse
+    # var = sorted_ids.map do |id_pair|
+    #   Url.where(id: id_pair[0]).first.address
+    # end
+    # binding.pry
+    urls = PayloadRequest.joins(:url).group(:url).order("count_all desc").count
+    urls.keys.map {|url| url.address}
   end
 end
