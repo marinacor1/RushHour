@@ -52,13 +52,11 @@ class PayloadRequest < ActiveRecord::Base
     elsif self == :unknown_client
       status 403
       body "not a known client root url"
-      # body errors.full_messages.join(", ")
     elsif self.save
       status = 200
     else
       status 403
       body "This is a duplicate"
-      # body errors.full_messages.join(", ")
     end
   end
 
