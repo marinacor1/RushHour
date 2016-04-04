@@ -10,17 +10,26 @@ class Client < ActiveRecord::Base
 
   def group_payloads_by(id)
     groups = payload_requests.group(id).count
+    #{6=>1, 4=>2, 1=>4, 5=>2}
     groups.sort_by { |id, count| count}.reverse
+    # [2, 2], [1, 1]]
   end
 
   def popular_request_type
     groups = group_payloads_by(:request_type_id)
-    groups.map do |id, count|
-      RequestType.where(id: id).pluck(:verb)
-    end.first
+    # [[1, 8], [2, 1]]
+    # groups.map do |id, count|
+    #   RequestType.where(id: id).pluck(:verb)
+    # end.first
+    #["GET"]
+    # Rachel's suggesion
+    # PayloadRequest.joins(:request_type).group(:request_type).order("count_all desc").count
+    #What gives the right response
+    PayloadRequest.joins(:request_type).group(:request_type).order("count_all desc").count.first.first[:verb]
   end
 
   def most_popular_urls
+
     groups = group_payloads_by(:url_id)
     groups.map do |url_id, count|
       Url.where(id: url_id).pluck(:address)
