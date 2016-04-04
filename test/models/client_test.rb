@@ -35,7 +35,7 @@ class ClientTest < Minitest::Spec
     client = Client.create(identifier: 'jumpstartlab', root_url: 'http://jumpstartlab.com')
     create_payloads
 
-    assert_equal ["GET"], client.popular_request_type
+    assert_equal "GET", client.popular_request_type
   end
 
   def test_clients_knows_sorted_urls
